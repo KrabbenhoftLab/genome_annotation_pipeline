@@ -2,7 +2,7 @@
 
 > [!NOTE] 
 > WORK IN PROGRESS.
-> This pipeline was built work specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
+> This pipeline was built specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
 > We are in the process of revising this pipeline to work on any Linux system. 
 > We plan to distribute this pipeline with a Docker image containing all dependencies in the future.
 > Please stay tuned for updates.
