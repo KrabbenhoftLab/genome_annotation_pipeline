@@ -1,5 +1,7 @@
 # Krabbenhoft Lab genome annotation pipeline using BRAKER and GeMoMa
-## WORK IN PROGRESS
+
+> [!ALERT] 
+> WORK IN PROGRESS
 
 Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 
