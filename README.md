@@ -9,7 +9,7 @@
 
 Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 
-[*dmacguig@buffalo.edu](dmacguig@buffalo.edu)
+*dmacguig@buffalo.edu
 
 ## Annotation pipeline flowchart
 ![flowchart](/annotation_flowchart.png)
