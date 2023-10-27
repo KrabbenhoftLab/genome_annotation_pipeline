@@ -11,14 +11,14 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 ## Dependencies
 
 > [!NOTE] 
-> This pipeline has been built work specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
+> This pipeline was built work specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
 > We are in the process of revising this pipeline to work on any Linux system. 
 > We plan to distribute this pipeline with a Docker image containing all dependencies in the future.
 > Please stay tuned for updates.
 
 - [RepeatModeler](https://www.repeatmasker.org/RepeatModeler/)
 - [RepeatMasker](https://www.repeatmasker.org/)
-- [NCBI BLAST 2.4.0](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.4.0/)(for compatibility with ProtExcluder)
+- [NCBI BLAST 2.4.0](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.4.0/) (for compatibility with ProtExcluder)
 - [ProtExcluder](https://github.com/NBISweden/ProtExcluder)
 - perl
 - [bbmap](https://sourceforge.net/projects/bbmap/)
