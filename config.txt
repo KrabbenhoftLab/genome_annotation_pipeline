@@ -1,0 +1,88 @@
+############################################################
+# Input variables                                          #
+############################################################
+
+############### Global options #############################
+# ANNOTATION_DIR (bottlerocket and cluster) should contain 
+# the following items when you first start the pipeline:
+# the genome-annotation executable file
+# the scripts directory
+# this config.txt file
+# your GENOME_DIR
+ANNOTATION_DIR_BOTTLEROCKET="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation" # top level directory for annotation on Bottlerocket
+ANNOTATION_DIR_CLUSTER="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel" # top level directory for annotation on the cluster
+SPECIES="Lpel" # short name for your species
+GENOME_DIR="Lpel_assembly" # directory containing your genome assembly, needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
+GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be loacted inside of GENOME_DIR
+
+############### Repeat modeling/masking options ############
+REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
+RMODEL_THREADS=20 # how many threads for repeat modeling 
+## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
+## RMBlast jobs will use 4 cores each, so on a machine with 12 cores and running with
+## RMBlast you would use RMASK_THREADS=3 to fully utilize the machine.
+RMASK_THREADS=4 
+## RM_SPECIES is the species or clade to use for repeat masking
+## to find a species or clade of interest, run the following three commands on Bottlerocket
+## 'source activate maker-3.01.03'
+## 'cd /home/krablab/Documents/apps/RepeatMasker/Libraries'
+## 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
+## this should print a list of potential matches for you to choose from
+RM_SPECIES="vertebrata" 
+BLAST_CPUS=20 # for use with steps 1B (reapeat masking)
+MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
+
+############### HISAT2 options ##############################
+## next 2 variables are comma seperated lists of full paths to paired-end Illumina RNA-seq reads (fastq files)
+## ***raw reads, not transcriptome assembly***
+## should have read 1 and read 2 files
+## if you do not have paired RNA-seq data, leave RNA_R1="NONE" and RNA_R2="NONE"
+RNA_R1="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/Lpel_1.trimmed.fq.gz"
+RNA_R2="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/Lpel_2.trimmed.fq.gz"
+## if you have unpaired (single-end) RNA-seq data,
+## next variable is comma seperated list of full paths to unpaired Illumina RNA-seq reads (fastq files)
+## ***raw reads, not transcriptome assembly***
+## if you do not have unpaired RNA-seq data, leave RNA_UNPAIRED="NONE"
+RNA_UNPAIRED="NONE" 
+HISAT_THREADS=10
+
+############### NCBI download options #######################
+## NCBI_TARGET_GENOMES contains the full path to two column tab delimited text file
+## first colum is the GenBank or RefSeq ID
+## you can find that information here: https://www.ncbi.nlm.nih.gov/datasets/genome/
+## second column is a unique name for that species/genome, keep it short, only alphanumeric characters
+NCBI_TARGET_GENOMES="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/genomes_to_download.txt" 
+NCBI_DOWNLOAD_DIR="NCBI_genomes" # directory for you downloaded files, will be created within ANNOTATION_DIR_CLUSTER
+
+############### BRAKER options ##############################
+AUGUSTUS_SPECIES_NAME="Lepomis_peltastes" # name for the Augustus model, BRAKER will throw error if this species already exists
+BRAKER_THREADS=20
+BRAKER_RAM="400G"
+## for PROT_FASTA, you will need to create a concatenated FASTA file containing all protein evidence
+## you will likely want to include protein data from NCBI for closely related species (STEP 5 of this pipeline)
+## you may also want to include the OrthoDB database
+## clade-specific OrthoDB V11 databases available here: https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/
+## to concatenate FASTA files, simply run "cat file1.fasta file2.fasta file3.fasta > concatenated.fasta"
+## you can also do this with gzipped fasta files
+PROT_FASTA="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/protein_data/orthodb.metazoa.ncbiRefSeq.fasta" 
+
+############### GeMoMa options ##############################
+GEMOMA_THREADS=20
+GEMOMA_JOB_RAM="400G"
+GEMOMA_RAM="380G" # this must be smaller than the GEMOMA_JOB_RAM
+## GEMOMA_REFS is the full path to a directory containing GFF and genome FASTA files for reference species
+## files must end in .gff or .fasta
+## file prefixes for GFF and FASTA must match, 
+## file prefixes must be comprised only of letters and numbers, no special characters
+## if you ran STEP 5 of this pipeline, GEMOMA_REFS can be the same directory as NCBI_DOWNLOAD_DIR
+GEMOMA_REFS="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/GeMoMa_refs" 
+USE_RNA_SEQ=YES # do you want to use the RNA-seq mapping generated by HISAT2, YES or NO?
+## RNA_LIB_TYPE is the RNA-seq library type(FR_UNSTRANDED, FR_FIRST_STRAND, or FR_SECOND_STRAND)
+## usually RNA-seq libraries are unstranded, but worth double checking for your datasets
+RNA_LIB_TYPE="FR_UNSTRANDED" 
+
+############### Evidence Modeler options #####################
+BRAKER_WEIGHT=1 # EVM weight for BRAKER predictions
+GEMOMA_WEIGHT=3 # EVM weight for GeMoMa predictions
+EVM_THREADS=20 # threads for EVM
+EVM_RAM="200G"

@@ -1,0 +1,190 @@
+#!/bin/bash
+## v0.2.4
+## Pipeline to annotate genome using BRAKER and GeMoMa
+## authors: Dan MacGuigan, Nate Backenstose, Christopher Osborne
+
+# Looking for the input variables? The are now located in the config.txt file. 
+# No need to modify this script unless troubleshooting.
+
+############################################################
+# Help                                                     #
+# DO NOT MODIFY                                            #
+############################################################
+Help()
+{
+   # Display Help
+   echo ""
+   echo "Krabbenhoft Lab pipline for genome annotation using BRAKER and GeMoMa"
+   echo "authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne"
+   echo "*dmacguig@buffalo.edu"
+   echo ""
+   echo "Before running this pipeline, be sure to modify the input variables in 'config.txt'"
+   echo ""
+   echo "Annotation pipeline steps"
+   echo "Step 1: RepeatModeler [Bottlerocket]"
+   echo "Step 2: RepeatMasker [Bottlerocket]"
+   echo "Step 3: soft mask genome [Bottlerocket]"
+   echo "Step 4: map RNA-seq reads [Bottlerocket]"
+   echo "        after Step 4, you must copy your ANNOTATION_DIR_BOTTLEROCKET to the cluster"
+   echo "        and specify full path of the copied directory as the ANNOTATION_DIR_CLUSTER"
+   echo "        variable in the config file"
+   echo "Step 5: download reference genome information from NCBI [cluster]"
+   echo "        optional if you already have reference genome data for BRAKER and GeMoMa"
+   echo "Step 6: BRAKER [cluster]"
+   echo "Step 7: GeMoMa [cluster]"
+   echo "Step 8: merge BRAKER and GeMoMa annotations with EvidenceModeler [cluster]"
+   echo ""
+   echo "Options:"
+   echo "s   Which step would you like to run? Enter number 1 through 7"
+   echo "c   Config text file"
+   echo "v   Check version of the main script and all subscripts"
+   echo "h   Print this Help"
+   echo ""
+   echo "Usage:"
+   echo "./genome-annotation -s 1 -c config.txt"
+}
+
+############################################################
+# Version check                                            #
+# DO NOT MODIFY                                            #
+############################################################
+Version()
+{
+	echo ""
+	echo "Version check, all scripts should have the same version number."
+	echo "If some scripts do not have the same version number, download"
+	echo "the latest copies from the KrabLab GitHub repository. If the"
+	echo "version conflict persists, please contact Dan MacGuigan at"
+	echo "dmacguig@buffalo.edu"
+	echo ""
+	ver=$( sed '2q;d' ./genome-annotation | cut -f2 -d" " )
+	echo "${ver} -> ./genome-annotation "
+	for filename in ./scripts/*.sh
+	do
+		ver=$( sed '2q;d' ${filename} | cut -f2 -d" " )
+		echo "${ver} -> ${filename}"
+	done
+	echo ""
+	exit
+}
+
+############################################################
+# Process the input options. Add options as needed.        #
+# DO NOT MODIFY                                            #
+############################################################
+# Get the options
+while getopts "hvs:c:" option; do
+   case ${option} in
+      h) # display Help
+         Help
+         exit;;
+      v)
+         Version
+         ;;
+      s) # run a step in the pipeline
+         step=$OPTARG
+         echo "running step ${step}"
+         ;;
+      c) # source the variables set in the config file supplied by the user
+         source $OPTARG
+         ;;
+      \?) # Invalid option
+        echo "Error: Invalid option"
+        Help
+        exit;;
+   esac
+done
+
+##############################################################
+# PIPELINE STEPS                                             #
+# RUN STEPS 1-4 on Bottlerocket                              #
+# RUN STEPS 5-8 on the cluster                               #
+##############################################################
+
+### STEP 1 ###
+## GENERATE CUSTOM REPEAT LIBRARY
+## on the KrabLab Bottlerocket
+if [[ "${step}" == 1 ]]; then
+	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
+	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/generate_repeat_lib.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_generate_repeat_lib.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_generate_repeat_lib.error"
+fi
+
+### STEP 2 ###
+## RUN REPEAT MASKER
+## on the KrabLab Bottlerocket
+## use the custom repeat library generated in step 1A
+## and species/clade specified by RM_SPECIES
+if [[ "${step}" == 2 ]]; then
+	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
+	source activate maker-3.01.03
+	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_repeatMasker.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES} ${BLAST_CPUS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.error"
+fi
+
+### STEP 3 ###
+## RUN BEDTOOLS TO SOFT MASK GENOME
+## on the KrabLab Bottlerocket
+## using the repeat GFF generated by step 1B
+if [[ "${step}" == 3 ]]; then
+	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
+	bedtools maskfasta -bed "${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_RepeatMasker/final_repeat_mask/${SPECIES}.final_repeat_mask.gff3" -fi "${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${GENOME_FILE}" -fo "${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${MASKED_GENOME_FILE}" -soft
+fi
+
+### STEP 4 ###
+## RUN HISAT2 TO MAP RNA-seq READS
+## on the KrabLab Bottlerocket
+## use soft masked genome from step 1C
+if [[ "${step}" == 4 ]]; then
+	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
+	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_HISAT2.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_R1} ${RNA_R2} ${RNA_UNPAIRED} ${HISAT_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.error"
+	samtools view -S -b ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.sam > ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.bam
+	samtools sort ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.bam -o ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam
+fi
+
+### STEP 5 ###
+## DOWNLOAD REFERENCE DATA FROM NCBI
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 5 ]]; then
+	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
+	sbatch --job-name="${SPECIES}_NCBI_DOWNLOAD" --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_NCBI_DOWNLOAD.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_NCBI_DOWNLOAD.err" ./scripts/download-ncbi-genomes.sh ${NCBI_TARGET_GENOMES} ${NCBI_DOWNLOAD_DIR} ${ANNOTATION_DIR_CLUSTER}
+fi
+
+### STEP 6 ###
+## RUN BRAKER
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 6 ]]; then
+	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
+	sbatch --job-name="${SPECIES}_BRAKER" --ntasks-per-node=${BRAKER_THREADS} --mem=${BRAKER_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_BRAKER.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_BRAKER.err" ./scripts/run_BRAKER.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${PROT_FASTA} ${BRAKER_THREADS} ${ANNOTATION_DIR_CLUSTER} ${AUGUSTUS_SPECIES_NAME}
+fi
+
+### STEP 7 ###
+## RUN GEMOMA
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 7 ]]; then
+	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
+	if [[ "${USE_RNA_SEQ}" == "NO" ]]; then
+		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS}
+	else
+		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA_RNA-seq.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS} ${RNA_LIB_TYPE}
+	fi
+fi
+
+### STEP 8 ###
+## MERGE GEMOMA AND BRAKER ANNOTATIONS WITH EVIDENCEMODELER
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 8 ]]; then
+	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
+	echo "converting BRAKER and GeMoMa files for EVM"
+	cd ${ANNOTATION_DIR_CLUSTER} # create directory for EVM
+	mkdir ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}
+	mkdir ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence
+	cd ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence
+	# make copies of gene predictions and merge
+	cp ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_BRAKER/braker.gtf braker.gtf
+	cp ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_GeMoMa/GeMoMa_combined/final_annotation.gff gemoma.gff3
+	# convert input files to EVM format
+	/projects/academic/tkrabben/software/EvidenceModeler/EVidenceModeler/EvmUtils/misc/GeMoMa_gff_to_gff3.pl gemoma.gff3 > gemoma.EVM.gff3
+	/projects/academic/tkrabben/software/EvidenceModeler/EVidenceModeler/EvmUtils/misc/braker_GTF_to_EVM_GFF3.pl braker.gtf > braker.EVM.gff3
+	cd ${ANNOTATION_DIR_CLUSTER}
+	echo "submitting EVM job"
+	sbatch --job-name="${SPECIES}_EVM" --ntasks-per-node=${EVM_THREADS} --mem=${EVM_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM.err" ./scripts/run_EVM.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT} ${GEMOMA_WEIGHT} ${EVM_THREADS}
+fi
