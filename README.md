@@ -1,7 +1,11 @@
 # Krabbenhoft Lab genome annotation pipeline using BRAKER and GeMoMa
 
 > [!NOTE] 
-> WORK IN PROGRESS
+> WORK IN PROGRESS.
+> This pipeline was built work specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
+> We are in the process of revising this pipeline to work on any Linux system. 
+> We plan to distribute this pipeline with a Docker image containing all dependencies in the future.
+> Please stay tuned for updates.
 
 Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 
@@ -11,12 +15,6 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 ![flowchart](/annotation_flowchart.png)
 
 ## Dependencies
-
-> [!NOTE] 
-> This pipeline was built work specifically for the Krabbenhoft Lab's servers and the University at Buffalo HPC cluster. 
-> We are in the process of revising this pipeline to work on any Linux system. 
-> We plan to distribute this pipeline with a Docker image containing all dependencies in the future.
-> Please stay tuned for updates.
 
 - [RepeatModeler](https://www.repeatmasker.org/RepeatModeler/)
 - [RepeatMasker](https://www.repeatmasker.org/)
