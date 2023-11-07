@@ -31,9 +31,9 @@ cd ${SPECIES}_HISAT2
 while read line; do
 	line_arr=($line)
 	if [ ${#line_arr[@]} -eq 1 ]; then # unpaired RNA-seq reads
-		hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_DIR}/${line_arr[0]} -2 ${RNA_DIR}/${line_arr[1]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
-	elif [ ${#line_arr[@]} -eq 2 ]; then # unpaired RNA-seq reads
 		hisat2 -p ${HISAT_THREADS} -q -U ${RNA_DIR}/${line_arr[0]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
+	elif [ ${#line_arr[@]} -eq 2 ]; then # paired RNA-seq reads
+		hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_DIR}/${line_arr[0]} -2 ${RNA_DIR}/${line_arr[1]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
 	else
 		echo "${line} --> contains more than two files"
 	fi
@@ -42,10 +42,11 @@ while read line; do
 	samtools sort  ${SPECIES}.${line_arr[0]}.rna.bam -o ${SPECIES}.${line_arr[0]}.sorted.rna.bam --threads ${HISAT_THREADS}
 	rm ${SPECIES}.${line_arr[0]}.rna.sam
 	rm ${SPECIES}.${line_arr[0]}.rna.bam
-	echo "finished RNA-seq read mapping"
+	echo "finished mapping ${line}"
 
 done < ../${RNA_FILES}
 
+echo "finished mapping all files"
 echo "merging bam files"
 samtools merge ${SPECIES}.*.sorted.rna.bam -o ${SPECIES}.rna.bam --threads ${HISAT_THREADS}
 samtools sort ${SPECIES}.rna.bam -o ${SPECIES}.sorted.rna.bam --threads ${HISAT_THREADS}
