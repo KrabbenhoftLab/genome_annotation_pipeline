@@ -1,5 +1,5 @@
 #!/bin/bash
-## v0.2.4
+## v0.2.5
 ## Pipeline to annotate genome using BRAKER and GeMoMa
 ## authors: Dan MacGuigan, Nate Backenstose, Christopher Osborne
 
@@ -135,9 +135,7 @@ fi
 ## use soft masked genome from step 1C
 if [[ "${step}" == 4 ]]; then
 	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
-	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_HISAT2.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_R1} ${RNA_R2} ${RNA_UNPAIRED} ${HISAT_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.error"
-	samtools view -S -b ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.sam > ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.bam
-	samtools sort ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.rna.bam -o ${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam
+	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_HISAT2.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_DIR} ${RNA_FILES} ${HISAT_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.error"
 fi
 
 ### STEP 5 ###

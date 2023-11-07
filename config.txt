@@ -13,7 +13,7 @@ ANNOTATION_DIR_BOTTLEROCKET="/home/krablab/Documents/MacGuigan_data/Lpel_genome/
 ANNOTATION_DIR_CLUSTER="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel" # top level directory for annotation on the cluster
 SPECIES="Lpel" # short name for your species
 GENOME_DIR="Lpel_assembly" # directory containing your genome assembly, needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
-GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be loacted inside of GENOME_DIR
+GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be located inside of GENOME_DIR
 
 ############### Repeat modeling/masking options ############
 REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
@@ -33,17 +33,16 @@ BLAST_CPUS=20 # for use with steps 1B (reapeat masking)
 MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
 
 ############### HISAT2 options ##############################
-## next 2 variables are comma seperated lists of full paths to paired-end Illumina RNA-seq reads (fastq files)
-## ***raw reads, not transcriptome assembly***
-## should have read 1 and read 2 files
-## if you do not have paired RNA-seq data, leave RNA_R1="NONE" and RNA_R2="NONE"
-RNA_R1="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/Lpel_1.trimmed.fq.gz"
-RNA_R2="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/Lpel_2.trimmed.fq.gz"
-## if you have unpaired (single-end) RNA-seq data,
-## next variable is comma seperated list of full paths to unpaired Illumina RNA-seq reads (fastq files)
-## ***raw reads, not transcriptome assembly***
-## if you do not have unpaired RNA-seq data, leave RNA_UNPAIRED="NONE"
-RNA_UNPAIRED="NONE" 
+RNA_DIR="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/" # full path to directory containing Illumina RNA-seq reads (fastq files)
+## RNA_FILES is a tab separated file containing RNA-seq fastq files, one sample per line
+## needs to be located in ANNOTATION_DIR
+## each line can either contain 1 file (unpaired reads) or two files (paired reads)
+## for example:
+## sample1_R1.fq.gz sample1_R2.fq.gz
+## sample2_R1.fq.gz sample2_R2.fq.gz
+## sample3.fq.gz
+## etc...
+RNA_FILES=rna_seqs.txt 
 HISAT_THREADS=10
 
 ############### NCBI download options #######################

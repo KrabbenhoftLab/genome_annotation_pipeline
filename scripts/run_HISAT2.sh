@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.2.4
+# v0.2.5
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
 
@@ -9,10 +9,9 @@
 SPECIES=$1 # short name for your species
 GENOME_DIR=$2 # directory containing your genome assembly
 MASKED_GENOME_FILE=$3 # your genome assembly
-RNA_R1=$4 # RNA read 1 files
-RNA_R2=$5 # RNA read 2 files
-RNA_UNPAIRED=$6 # unpaired RNA read files
-HISAT_THREADS=$7
+RNA_DIR=$4 # RNA read 1 files
+RNA_FILES=$5 # RNA read 2 files
+HISAT_THREADS=$6
 
 # create directory for HISAT2
 mkdir ${SPECIES}_HISAT2
@@ -28,12 +27,27 @@ echo ""
 echo "finished indexing, now mapping RNA-seq reads"
 # now map RNA seq reads
 cd ${SPECIES}_HISAT2
-# if you DO NOT have unpaired RNA-seq reads
-if [ "${RNA_UNPAIRED}" == "NONE" ]; then
-	hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_R1} -2 ${RNA_R2} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.rna.sam
-elif [ "${RNA_1}" == "NONE" ]; then
-	hisat2 -p ${HISAT_THREADS} -q -U ${RNA_UNPAIRED} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.rna.sam
-else
-	hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_R1} -2 ${RNA_R2} -U ${RNA_UNPAIRED} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.rna.sam
-fi
-echo "finished RNA-seq read mapping"
+
+while read line; do
+	line_arr=($line)
+	if [ ${#line_arr[@] -eq 1}; then # unpaired RNA-seq reads
+		hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_DIR}/${line_arr[0]} -2 ${RNA_DIR}/${line_arr[1]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
+	elif [ ${#line_arr[@] -eq 2}; then # unpaired RNA-seq reads
+		hisat2 -p ${HISAT_THREADS} -q -U ${RNA_DIR}/${line_arr[0]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
+	else
+		echo "${line} --> contains more than two files"
+	fi
+	
+	samtools view -S -b ${SPECIES}.${line_arr[0]}.rna.sam > ${SPECIES}.${line_arr[0]}.rna.bam
+	samtools sort  ${SPECIES}.${line_arr[0]}.rna.bam -o ${SPECIES}.${line_arr[0]}.sorted.rna.bam
+	
+	echo "finished RNA-seq read mapping"
+
+done < ../${RNA_FILES}
+
+echo "merging bam files"
+samtools merge ${SPECIES}.*.sorted.rna.bam -o ${SPECIES}.rna.bam
+samtools sort ${SPECIES}.rna.bam -o ${SPECIES}.sorted.rna.bam
+
+echo "merged bam file: ${SPECIES}.sorted.rna.bam"
+echo "step complete"
