@@ -44,6 +44,7 @@ RNA_DIR="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_
 ## etc...
 RNA_FILES=rna_seqs.txt 
 HISAT_THREADS=10
+## IMPORTATNT NOTE: RNA-seq files should not be more than a few Gb in size, otherwise HISAT2 will probably fail (likely error 137, insufficient RAM)
 
 ############### NCBI download options #######################
 ## NCBI_TARGET_GENOMES contains the full path to two column tab delimited text file
