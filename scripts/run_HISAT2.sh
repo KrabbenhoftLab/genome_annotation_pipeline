@@ -30,9 +30,9 @@ cd ${SPECIES}_HISAT2
 
 while read line; do
 	line_arr=($line)
-	if [ ${#line_arr[@] -eq 1}; then # unpaired RNA-seq reads
+	if [ ${#line_arr[@]} -eq 1 ]; then # unpaired RNA-seq reads
 		hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_DIR}/${line_arr[0]} -2 ${RNA_DIR}/${line_arr[1]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
-	elif [ ${#line_arr[@] -eq 2}; then # unpaired RNA-seq reads
+	elif [ ${#line_arr[@]} -eq 2 ]; then # unpaired RNA-seq reads
 		hisat2 -p ${HISAT_THREADS} -q -U ${RNA_DIR}/${line_arr[0]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
 	else
 		echo "${line} --> contains more than two files"
