@@ -40,7 +40,8 @@ while read line; do
 	
 	samtools view -S -b ${SPECIES}.${line_arr[0]}.rna.sam > ${SPECIES}.${line_arr[0]}.rna.bam
 	samtools sort  ${SPECIES}.${line_arr[0]}.rna.bam -o ${SPECIES}.${line_arr[0]}.sorted.rna.bam
-	
+	rm ${SPECIES}.${line_arr[0]}.rna.sam
+	rm ${SPECIES}.${line_arr[0]}.rna.bam
 	echo "finished RNA-seq read mapping"
 
 done < ../${RNA_FILES}
@@ -48,6 +49,7 @@ done < ../${RNA_FILES}
 echo "merging bam files"
 samtools merge ${SPECIES}.*.sorted.rna.bam -o ${SPECIES}.rna.bam
 samtools sort ${SPECIES}.rna.bam -o ${SPECIES}.sorted.rna.bam
+rm ${SPECIES}.rna.bam
 
 echo "merged bam file: ${SPECIES}.sorted.rna.bam"
 echo "step complete"
