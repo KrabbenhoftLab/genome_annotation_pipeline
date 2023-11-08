@@ -44,6 +44,15 @@ To do this, run `chmod 755 genome-annotation` in your annotation directory.
 Then run `./genome-annotation -h` to make sure it worked.
 
 Before running the pipeline, be sure to set all of the variables in the `config.txt` file.
+Read this document carefully to ensure that your file structure is correct. 
+When starting a new run, your file structure should look like this:
+
+- ANNOTATION_DIR_BOTTLEROCKET/CLUSTER
+  - GENOME_DIR/GENOME_FILE
+  - RNA_DIR (containing RNA-seq FASTQ files)
+  - scripts directory (from this repository)
+  - genome-annotation executable (from this repository)
+  - config.txt (from this repository)
 
 To see help options, run `./genome-annotation -h`.
 
