@@ -45,7 +45,7 @@ Then run `./genome-annotation -h` to make sure it worked.
 
 Before running the pipeline, be sure to set all of the variables in the `config.txt` file.
 
-When starting a new run, your directory structure should look like this:
+When starting a new genome annotation, your directory structure should look like this:
 
 - ANNOTATION_DIR_BOTTLEROCKET/CLUSTER
   - GENOME_DIR
@@ -60,3 +60,8 @@ To see help options, run `./genome-annotation -h`.
 
 To perform a step of the pipeline, run `./genome-annotation -s 1 -c config.txt`. 
 Pipeline steps should be performed sequentially, except for steps 5 and 6, which can run simultaneously.
+
+Want to rerun part (or all) of the pipeline with different data or parameters?
+Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (ESPECIALLY THE ANNOTATION_DIR VARIABLES). 
+Then rerun the pipeline within this new directory
+This is the best way to avoid accidentally overwriting your previous annotation files.
