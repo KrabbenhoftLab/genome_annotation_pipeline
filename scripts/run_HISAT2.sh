@@ -49,7 +49,7 @@ done < ../${RNA_FILES}
 echo "finished mapping all files"
 echo "merging bam files"
 samtools merge ${SPECIES}.rna.bam ${SPECIES}.*.sorted.rna.bam --threads ${HISAT_THREADS}
-samtools sort ${SPECIES}.rna.bam -o ${SPECIES}.sorted.rna.bam --threads ${HISAT_THREADS}
+samtools sort ${SPECIES}.rna.bam -o ${SPECIES}.sorted.rna.bam --threads ${HISAT_THREADS} -m 2G
 rm ${SPECIES}.rna.bam
 
 echo "merged bam file: ${SPECIES}.sorted.rna.bam"
