@@ -49,7 +49,7 @@ When starting a new run, your directory structure should look like this:
 
 - ANNOTATION_DIR_BOTTLEROCKET/CLUSTER
   - GENOME_DIR/GENOME_FILE
-  - RNA_DIR (containing RNA-seq FASTQ files)
+  - RNA_DIR (containing RNA-seq FASTQ files listed in RNA_FILES)
   - scripts directory (from this repository)
   - genome-annotation executable (from this repository)
   - config.txt (from this repository)
