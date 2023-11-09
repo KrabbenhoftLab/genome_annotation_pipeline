@@ -9,6 +9,7 @@
 #SBATCH --mem=100G
 #SBATCH --constraint=AVX512
 #SBATCH --export=NONE
+#SBATCH --reservation=ubhpc-future
 
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
@@ -24,7 +25,7 @@ ANNOTATION_DIR=$3
 mkdir ${ANNOTATION_DIR}/${NCBI_DOWNLOAD_DIR}
 cd ${ANNOTATION_DIR}/${NCBI_DOWNLOAD_DIR}
 
-module load miniconda3
+module load miniconda3/22.11.1-1
 source activate ncbi_datasets
 
 while read p
