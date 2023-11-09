@@ -31,7 +31,7 @@ BRAKER_SIF="/projects/academic/tkrabben/software/BRAKER3/braker3.sif" # location
 mkdir ${SPECIES}_BRAKER
 
 echo "starting BRAKER, sit tight"
-singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.rna.sorted.bam --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
+singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
 
 # GET LONGEST ISOFORM OF EACH GENE FOR BUSCO ANALYSES WITH GVOLANTE
 AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0.sif"

@@ -43,7 +43,7 @@ outDir_combined="GeMoMa_combined"
 mkdir ${outDir_combined}
 
 # make .sh file to run combined GEMOMA
-echo "GeMoMa GeMoMaPipeline -XX${GEMOMA_RAM} \\" > run_GeMoMa.combined.sh
+echo "GeMoMa -Xmx${GEMOMA_RAM} GeMoMaPipeline \\" > run_GeMoMa.combined.sh
 echo "threads=${GEMOMA_THREADS} \\" >> run_GeMoMa.combined.sh
 echo "AnnotationFinalizer.r=NO \\" >> run_GeMoMa.combined.sh
 echo "p=false \\" >> run_GeMoMa.combined.sh
@@ -73,7 +73,7 @@ conda activate GeMoMa_1.9
 bash run_GeMoMa.combined.sh
 
 # generate protien predictions
-GeMoMa Extractor -XX${GEMOMA_RAM} \
+GeMoMa -Xmx${GEMOMA_RAM} Extractor \
  Ambiguity=AMBIGUOUS \
  p=true \
  outdir=${outDir_combined} \
@@ -87,7 +87,7 @@ AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0
 singularity run -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff ${outDir_combined}/final_annotation.gff -o ${outDir_combined}/final_annotation.longest_isoform.gff
 
 # generate protein predictions for longest isoform
-GeMoMa Extractor -XX${GEMOMA_RAM} \
+GeMoMa -Xmx${GEMOMA_RAM} Extractor \
  Ambiguity=AMBIGUOUS \
  p=true \
  outdir=${outDir_combined} \
