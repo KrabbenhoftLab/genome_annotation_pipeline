@@ -54,6 +54,7 @@ echo "see ${SPECIES}.EVM.genestats.txt for list of stats by gene"
 module load gcc/11.2.0
 module load samtools/1.16.1
 module load bedtools/2.30.0
+module load bcftools/1.14
 sed '/^$/d' ${SPECIES}.EVM.gff3 > ${SPECIES}.EVM.mod.gff3 # need to remove empty lines for tabix
 echo -e 'transcript_ID\ttranscript_length\texons\ttotal_exon_length\tintrons\ttotal_intron_length\tCDS\ttotal_CDS_length' > ${SPECIES}.EVM.genestats.txt
 /projects/academic/tkrabben/software/genestats/genestats ${SPECIES}.EVM.mod.gff3 >> ${SPECIES}.EVM.genestats.txt
@@ -61,6 +62,6 @@ echo "test"
 cat ${SPECIES}.EVM.pep | awk '$0 ~ ">" {if (NR > 1) {print c;} c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > ${SPECIES}.EVM.pep.lens.txt
 echo "test2"
 rm ${SPECIES}.EVM.summaryStats.txt
-module load miniconda3;source activate r_env
+module load miniconda3/22.11.1-1;source activate r_env
 Rscript --vanilla ${ANNOTATION_DIR}/scripts/annotation_summary_stats.R ${SPECIES}.EVM.mod.gff3 introns.txt ${SPECIES}.EVM.genestats.txt ${SPECIES}.EVM.pep.lens.txt ${SPECIES}
 
