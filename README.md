@@ -34,6 +34,7 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 - [R](https://cran.r-project.org/)
 	- ggplot2 package
 	- cowplot package
+- [EggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper) + dependencies
 
 ## Usage
 
