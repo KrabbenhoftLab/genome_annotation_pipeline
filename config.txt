@@ -88,8 +88,8 @@ EVM_THREADS=20 # threads for EVM
 EVM_RAM="200G"
 
 ############### eggNOG mapper options ########################
-BRAKER_WEIGHT=1 # EVM weight for BRAKER predictions
-GEMOMA_WEIGHT=3 # EVM weight for GeMoMa predictions
+BRAKER_WEIGHT_EGG=1 # EVM weight for BRAKER predictions
+GEMOMA_WEIGHT_EGG=3 # EVM weight for GeMoMa predictions
 EGG_THREADS=20 # threads for eggNOG mapper
 EGG_RAM="200G"
 EGGNOG_OPTIONS="" # additional eggNOG options, see https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-Installation
