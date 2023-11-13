@@ -1,5 +1,5 @@
 #!/bin/bash
-## v0.2.5
+## v0.3.0
 ## Pipeline to annotate genome using BRAKER and GeMoMa
 ## authors: Dan MacGuigan, Nate Backenstose, Christopher Osborne
 
@@ -33,6 +33,7 @@ Help()
    echo "Step 6: BRAKER [cluster]"
    echo "Step 7: GeMoMa [cluster]"
    echo "Step 8: merge BRAKER and GeMoMa annotations with EvidenceModeler [cluster]"
+   echo "Step 9: run eggNOG mapper to add functional annotations"
    echo ""
    echo "Options:"
    echo "s   Which step would you like to run? Enter number 1 through 7"
@@ -173,8 +174,8 @@ if [[ "${step}" == 8 ]]; then
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	echo "converting BRAKER and GeMoMa files for EVM"
 	cd ${ANNOTATION_DIR_CLUSTER} # create directory for EVM
-	mkdir ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}
-	mkdir ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence
+	mkdir -p ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}
+	mkdir -p ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence
 	cd ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence
 	# make copies of gene predictions and merge
 	cp ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_BRAKER/braker.gtf braker.gtf
@@ -185,4 +186,14 @@ if [[ "${step}" == 8 ]]; then
 	cd ${ANNOTATION_DIR_CLUSTER}
 	echo "submitting EVM job"
 	sbatch --job-name="${SPECIES}_EVM" --ntasks-per-node=${EVM_THREADS} --mem=${EVM_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM.err" ./scripts/run_EVM.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT} ${GEMOMA_WEIGHT} ${EVM_THREADS}
+fi
+
+### STEP 9 ###
+## RUN EGGNOG MAPPER TO GENERATE FUNCTIONAL ANNOTATIONS FOR THE EVM GENE SETS
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 9 ]]; then
+	cd ${ANNOTATION_DIR_CLUSTER}
+	mkdir -p ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_eggNOG
+	echo "submitting eggNOG mapper job"
+	sbatch --job-name="${SPECIES}_eggNOG" --ntasks-per-node=${EGG_THREADS} --mem=${EGG_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM_eggNOG.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_EVM_eggNOG.err" ./scripts/run_eggNOG.sh ${SPECIES}  ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT} ${GEMOMA_WEIGHT} ${EGG_THREADS} ${EGGNOG_OPTIONS}
 fi

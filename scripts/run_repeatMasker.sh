@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.2.5
+# v0.3.0
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
 
