@@ -137,7 +137,7 @@ p_grid <- plot_grid(gene_len_p, gene_len_p_crop,
           ncol=2)
 
 ggsave <- function(..., bg = 'white') ggplot2::ggsave(..., bg = bg)
-ggsave(p_grid, width = 11, height = 8, device = "png", units = "in", dpi = 600, 
-       filename = paste0(species, ".EVM.summaryStats.png"))
+ggsave(p_grid, width = 11, height = 8, device = "pdf", units = "in",
+       filename = paste0(species, ".EVM.summaryStats.pdf"))
 
 
