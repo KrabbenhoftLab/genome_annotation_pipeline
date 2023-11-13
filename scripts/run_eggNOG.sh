@@ -18,4 +18,4 @@ module load miniconda3/22.11.1-1
 source activate eggnog-mapper
 
 # use * after pep in case user has compressed the peptide fasta
-emapper.py -i ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/${SPECIES}.EVM.pep* --output_dir {SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_eggNOG -o Engr.EVM.B${BRAKER_WEIGHT}.G${GEMOMA_WEIGHT} --decorate_gff ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/${SPECIES}.EVM.mod.gff3 --excel ${EGGNOG_OPTIONS}
+emapper.py --cpu ${EGG_THREADS} -i ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/${SPECIES}.EVM.pep* --output_dir {SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}_eggNOG -o Engr.EVM.B${BRAKER_WEIGHT}.G${GEMOMA_WEIGHT} --decorate_gff ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/${SPECIES}.EVM.mod.gff3 --excel ${EGGNOG_OPTIONS}
