@@ -33,6 +33,7 @@ BLAST_CPUS=20 # for use with steps 1B (reapeat masking)
 MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
 
 ############### HISAT2 options ##############################
+## NOTE: HISAT2 is optional but recommended, requires Illumina RNA-seq data, preferably from the species you are annotating
 RNA_DIR="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_reads/" # full path to directory containing Illumina RNA-seq reads (fastq files)
 ## RNA_FILES is a tab separated file containing RNA-seq fastq files, one sample per line
 ## needs to be located in ANNOTATION_DIR
