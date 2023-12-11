@@ -53,7 +53,7 @@ HISAT_THREADS=10
 ## you can find that information here: https://www.ncbi.nlm.nih.gov/datasets/genome/
 ## second column is a unique name for that species/genome, keep it short, only alphanumeric characters
 NCBI_TARGET_GENOMES="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/genomes_to_download.txt" 
-NCBI_DOWNLOAD_DIR="NCBI_genomes" # directory for you downloaded files, will be created within ANNOTATION_DIR_CLUSTER
+NCBI_DOWNLOAD_DIR="NCBI_genomes" # directory for your downloaded files, will be created within ANNOTATION_DIR_CLUSTER
 
 ############### BRAKER options ##############################
 AUGUSTUS_SPECIES_NAME="Lepomis_peltastes" # name for the Augustus model, BRAKER will throw error if this species already exists
