@@ -101,26 +101,6 @@ while getopts "hvs:c:" option; do
 done
 
 ##############################################################
-# CHECK TO MAKE SURE ALL VARIABLES ARE SET                   #
-##############################################################
-
-if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET is set to '$ANNOTATION_DIR_BOTTLEROCKET'"; fi
-if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER is set to '$ANNOTATION_DIR_CLUSTER'"; fi
-if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES is set to '$SPECIES'"; fi
-if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR is set to '$GENOME_DIR'"; fi
-if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE is set to '$GENOME_FILE'"; fi
-if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "REPEAT_LIBRARY_NAME is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "REPEAT_LIBRARY_NAME is set to '$REPEAT_LIBRARY_NAME'"; fi
-if [ -z ${RMODEL_THREADS+x} ]; then echo "RMODEL_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RMODEL_THREADS is set to '$RMODEL_THREADS'"; fi
-if [ -z ${RM_SPECIES+x} ]; then echo "RM_SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RM_SPECIES is set to '$RM_SPECIES'"; fi
-if [ -z ${BLAST_CPUS+x} ]; then echo "BLAST_CPUS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BLAST_CPUS is set to '$BLAST_CPUS'"; fi
-if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "MASKED_GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "MASKED_GENOME_FILE is set to '$MASKED_GENOME_FILE'"; fi
-if [ -z ${RNA_DIR+x} ]; then echo "RNA_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RNA_DIR is set to '$RNA_DIR'"; fi
-if [ -z ${RNA_FILES+x} ]; then echo "RNA_FILES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RNA_FILES is set to '$RNA_FILES'"; fi
-if [ -z ${HISAT_THREADS+x} ]; then echo "HISAT_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "HISAT_THREADS is set to '$HISAT_THREADS'"; fi
-
-
-
-##############################################################
 # PIPELINE STEPS                                             #
 # RUN STEPS 1-4 on Bottlerocket                              #
 # RUN STEPS 5-8 on the cluster                               #
@@ -130,6 +110,16 @@ if [ -z ${HISAT_THREADS+x} ]; then echo "HISAT_THREADS is unset"; echo "please e
 ## GENERATE CUSTOM REPEAT LIBRARY
 ## on the KrabLab Bottlerocket
 if [[ "${step}" == 1 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "REPEAT_LIBRARY_NAME is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "REPEAT_LIBRARY_NAME='$REPEAT_LIBRARY_NAME'"; fi
+	if [ -z ${RMODEL_THREADS+x} ]; then echo "RMODEL_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RMODEL_THREADS='$RMODEL_THREADS'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/generate_repeat_lib.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_generate_repeat_lib.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_generate_repeat_lib.error"
 fi
@@ -140,6 +130,18 @@ fi
 ## use the custom repeat library generated in step 1A
 ## and species/clade specified by RM_SPECIES
 if [[ "${step}" == 2 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${RMASK_THREADS+x} ]; then echo "RMASK_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RMASK_THREADS='$RMASK_THREADS'"; fi
+	if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "REPEAT_LIBRARY_NAME is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "REPEAT_LIBRARY_NAME='$REPEAT_LIBRARY_NAME'"; fi
+	if [ -z ${RM_SPECIES+x} ]; then echo "RM_SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RM_SPECIES='$RM_SPECIES'"; fi
+	if [ -z ${BLAST_CPUS+x} ]; then echo "BLAST_CPUS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BLAST_CPUS='$BLAST_CPUS'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 	source activate maker-3.01.03
 	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_repeatMasker.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES} ${BLAST_CPUS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.error"
@@ -150,6 +152,15 @@ fi
 ## on the KrabLab Bottlerocket
 ## using the repeat GFF generated by step 1B
 if [[ "${step}" == 3 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "MASKED_GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "MASKED_GENOME_FILE='$MASKED_GENOME_FILE'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 	bedtools maskfasta -bed "${ANNOTATION_DIR_BOTTLEROCKET}/${SPECIES}_RepeatMasker/final_repeat_mask/${SPECIES}.final_repeat_mask.gff3" -fi "${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${GENOME_FILE}" -fo "${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${MASKED_GENOME_FILE}" -soft
 fi
@@ -159,6 +170,17 @@ fi
 ## on the KrabLab Bottlerocket
 ## use soft masked genome from step 1C
 if [[ "${step}" == 4 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${RNA_DIR+x} ]; then echo "RNA_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RNA_DIR='$RNA_DIR'"; fi
+	if [ -z ${RNA_FILES+x} ]; then echo "RNA_FILES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "RNA_FILES='$RNA_FILES'"; fi
+	if [ -z ${HISAT_THREADS+x} ]; then echo "HISAT_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "HISAT_THREADS='$HISAT_THREADS'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_HISAT2.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_DIR} ${RNA_FILES} ${HISAT_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.error"
 fi
@@ -167,6 +189,17 @@ fi
 ## DOWNLOAD REFERENCE DATA FROM NCBI
 ## on the UB CCR Vortex cluster
 if [[ "${step}" == 5 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${NCBI_TARGET_GENOMES+x} ]; then echo "NCBI_TARGET_GENOMES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "NCBI_TARGET_GENOMES='$NCBI_TARGET_GENOMES'"; fi
+	if [ -z ${NCBI_DOWNLOAD_DIR+x} ]; then echo "NCBI_DOWNLOAD_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "NCBI_DOWNLOAD_DIR='$NCBI_DOWNLOAD_DIR'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	sbatch --job-name="${SPECIES}_NCBI_DOWNLOAD" --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_NCBI_DOWNLOAD.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_NCBI_DOWNLOAD.err" ./scripts/download-ncbi-genomes.sh ${NCBI_TARGET_GENOMES} ${NCBI_DOWNLOAD_DIR} ${ANNOTATION_DIR_CLUSTER}
 fi
@@ -175,6 +208,19 @@ fi
 ## RUN BRAKER
 ## on the UB CCR Vortex cluster
 if [[ "${step}" == 6 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${AUGUSTUS_SPECIES_NAME+x} ]; then echo "AUGUSTUS_SPECIES_NAME is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "AUGUSTUS_SPECIES_NAME='$AUGUSTUS_SPECIES_NAME'"; fi
+	if [ -z ${BRAKER_THREADS+x} ]; then echo "BRAKER_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BRAKER_THREADS='$BRAKER_THREADS'"; fi
+	if [ -z ${BRAKER_RAM+x} ]; then echo "BRAKER_RAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BRAKER_RAM='$BRAKER_RAM'"; fi
+	if [ -z ${PROT_FASTA+x} ]; then echo "PROT_FASTA is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "PROT_FASTA='$PROT_FASTA'"; fi
+	if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "MASKED_GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "MASKED_GENOME_FILE='$MASKED_GENOME_FILE'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	sbatch --job-name="${SPECIES}_BRAKER" --ntasks-per-node=${BRAKER_THREADS} --mem=${BRAKER_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_BRAKER.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_BRAKER.err" ./scripts/run_BRAKER.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${PROT_FASTA} ${BRAKER_THREADS} ${ANNOTATION_DIR_CLUSTER} ${AUGUSTUS_SPECIES_NAME}
 fi
@@ -183,6 +229,25 @@ fi
 ## RUN GEMOMA
 ## on the UB CCR Vortex cluster
 if [[ "${step}" == 7 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${GEMOMA_THREADS+x} ]; then echo "GEMOMA_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_THREADS='$GEMOMA_THREADS'"; fi
+	if [ -z ${GEMOMA_JOB_RAM+x} ]; then echo "GEMOMA_JOB_RAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_JOB_RAM='$GEMOMA_JOB_RAM'"; fi
+	if [ -z ${GEMOMA_RAM+x} ]; then echo "GEMOMA_RAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_RAM='$GEMOMA_RAM'"; fi
+	if [ -z ${GEMOMA_REFS+x} ]; then echo "GEMOMA_REFS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_REFS='$GEMOMA_REFS'"; fi
+	if [ -z ${USE_HISAT2_RNA_SEQ+x} ]; then echo "USE_HISAT2_RNA_SEQ is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "USE_HISAT2_RNA_SEQ='$USE_HISAT2_RNA_SEQ'"; fi
+	if [ -z ${HISAT2_RNA_LIB_TYPE+x} ]; then echo "HISAT2_RNA_LIB_TYPE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "HISAT2_RNA_LIB_TYPE='$HISAT2_RNA_LIB_TYPE'"; fi
+	if [ -z ${USE_CUSTOM_RNA_SEQ+x} ]; then echo "USE_CUSTOM_RNA_SEQ is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "USE_CUSTOM_RNA_SEQ='$USE_CUSTOM_RNA_SEQ'"; fi
+	if [ -z ${CUSTOM_RNA_BAM+x} ]; then echo "CUSTOM_RNA_BAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "CUSTOM_RNA_BAM='$CUSTOM_RNA_BAM'"; fi
+	if [ -z ${CUSTOM_RNA_LIB_TYPE+x} ]; then echo "CUSTOM_RNA_LIB_TYPE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "CUSTOM_RNA_LIB_TYPE='$CUSTOM_RNA_LIB_TYPE'"; fi
+	if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "MASKED_GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "MASKED_GENOME_FILE='$MASKED_GENOME_FILE'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	if [[ "${USE_HISAT2_RNA_SEQ}" == "YES" ]]; then
 		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA_RNA-seq.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS} ${USE_HISAT2_RNA_SEQ} ${HISAT2_RNA_LIB_TYPE} ${USE_CUSTOM_RNA_SEQ} ${CUSTOM_RNA_BAM} ${CUSTOM_RNA_LIB_TYPE}
@@ -198,6 +263,19 @@ fi
 ## MERGE GEMOMA AND BRAKER ANNOTATIONS WITH EVIDENCEMODELER
 ## on the UB CCR Vortex cluster
 if [[ "${step}" == 8 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${BRAKER_WEIGHT+x} ]; then echo "BRAKER_WEIGHT is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BRAKER_WEIGHT='$BRAKER_WEIGHT'"; fi
+	if [ -z ${GEMOMA_WEIGHT+x} ]; then echo "GEMOMA_WEIGHT is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_WEIGHT='$GEMOMA_WEIGHT'"; fi
+	if [ -z ${EVM_THREADS+x} ]; then echo "EVM_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "EVM_THREADS='$EVM_THREADS'"; fi
+	if [ -z ${EVM_RAM+x} ]; then echo "EVM_RAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "EVM_RAM='$EVM_RAM'"; fi
+	if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "MASKED_GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "MASKED_GENOME_FILE='$MASKED_GENOME_FILE'"; fi
+	echo ""
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	echo "converting BRAKER and GeMoMa files for EVM"
 	cd ${ANNOTATION_DIR_CLUSTER} # create directory for EVM
@@ -219,8 +297,21 @@ fi
 ## RUN EGGNOG MAPPER TO GENERATE FUNCTIONAL ANNOTATIONS FOR THE EVM GENE SETS
 ## on the UB CCR Vortex cluster
 if [[ "${step}" == 9 ]]; then
+	echo ""
+	echo "INPUT VARIABLES specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "ANNOTATION_DIR_CLUSTER is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "SPECIES is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "SPECIES='$SPECIES'"; fi
+	if [ -z ${GENOME_DIR+x} ]; then echo "GENOME_DIR is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_DIR='$GENOME_DIR'"; fi
+	if [ -z ${GENOME_FILE+x} ]; then echo "GENOME_FILE is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GENOME_FILE='$GENOME_FILE'"; fi
+	if [ -z ${BRAKER_WEIGHT_EGG+x} ]; then echo "BRAKER_WEIGHT_EGG is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "BRAKER_WEIGHT_EGG='$BRAKER_WEIGHT_EGG'"; fi
+	if [ -z ${GEMOMA_WEIGHT_EGG+x} ]; then echo "GEMOMA_WEIGHT_EGG is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "GEMOMA_WEIGHT_EGG='$GEMOMA_WEIGHT_EGG'"; fi
+	if [ -z ${EGG_THREADS+x} ]; then echo "EGG_THREADS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "EGG_THREADS='$EGG_THREADS'"; fi
+	if [ -z ${EGG_RAM+x} ]; then echo "EGG_RAM is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "EGG_RAM='$EGG_RAM'"; fi
+	if [ -z ${EGGNOG_OPTIONS+x} ]; then echo "EGGNOG_OPTIONS is unset"; echo "please ensure all variables are specified in your config file"; exit 1; else echo "EGGNOG_OPTIONS='$EGGNOG_OPTIONS'"; fi
+	echo ""
 	cd ${ANNOTATION_DIR_CLUSTER}
 	mkdir -p ${SPECIES}_EVM_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}_eggNOG
 	echo "submitting eggNOG mapper job"
-	sbatch --job-name="${SPECIES}_eggNOG" --ntasks-per-node=${EGG_THREADS} --mem=${EGG_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}_EVM_eggNOG.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}_EVM_eggNOG.err" ./scripts/run_eggNOG.sh ${SPECIES}  ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT} ${GEMOMA_WEIGHT} ${EGG_THREADS} ${EGGNOG_OPTIONS}
+	sbatch --job-name="${SPECIES}_eggNOG" --ntasks-per-node=${EGG_THREADS} --mem=${EGG_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}_EVM_eggNOG.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}_EVM_eggNOG.err" ./scripts/run_eggNOG.sh ${SPECIES}  ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT_EGG} ${GEMOMA_WEIGHT_EGG} ${EGG_THREADS} ${EGGNOG_OPTIONS}
 fi
