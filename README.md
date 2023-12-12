@@ -40,7 +40,10 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 
 First, clone this repository. 
 Next, rename the cloned repository from `genome_annotation_pipeline` to something informative.
-For example: `mv genome_annotation_pipeline MY_SPECIES_genome_annotation`.
+For example: 
+```
+mv genome_annotation_pipeline MY_SPECIES_genome_annotation
+```
 This renamed directory is your `ANNOTATION_DIR` in the config file and will contain all of your data and results. 
 
 Before running the pipeline, be sure to set all of the variables in the `config.txt` file.
