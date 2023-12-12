@@ -2,6 +2,11 @@
 # Input variables                                          #
 ############################################################
 
+# IMPORTANT : all variables below must be set
+# do not comment out or delete any variables
+# if you do not need to use a variable, you must still supply an empty string
+# e.g. RNA_DIR=""
+
 ############### Global options #############################
 # ANNOTATION_DIR (bottlerocket and cluster) should contain 
 # the following items when you first start the pipeline:
@@ -45,7 +50,7 @@ RNA_DIR="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation/RNA_
 ## etc...
 RNA_FILES=rna_seqs.txt 
 HISAT_THREADS=10
-## IMPORTATNT NOTE: RNA-seq files should not be more than a few Gb in size, otherwise HISAT2 will probably fail (likely error 137, insufficient RAM)
+## IMPORTANT NOTE: RNA-seq files should not be more than a few Gb in size, otherwise HISAT2 will probably fail (likely error 137, insufficient RAM)
 
 ############### NCBI download options #######################
 ## NCBI_TARGET_GENOMES contains the full path to two column tab delimited text file
