@@ -59,6 +59,7 @@ echo "r=MAPPED \\" >> run_GeMoMa.combined.sh
 if [[ "${USE_HISAT2_RNA_SEQ}" == "YES" ]]; then
 	echo "ERE.m=${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam \\" >> run_GeMoMa.combined.sh
 	echo "ERE.s=${HISAT2_RNA_LIB_TYPE} \\" >> run_GeMoMa.combined.sh
+fi
 if [[ "${USE_CUSTOM_RNA_SEQ}" == "YES" ]]; then
 	echo "ERE.m=${CUSTOM_RNA_BAM}.sorted.bam \\" >> run_GeMoMa.combined.sh
 	echo "ERE.s=${CUSTOM_RNA_LIB_TYPE} \\" >> run_GeMoMa.combined.sh
