@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.3.1
+# v0.3.2
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -24,7 +24,11 @@ GEMOMA_THREADS=$4
 GEMOMA_RAM=$5
 ANNOTATION_DIR=$6
 GEMOMA_REFS=$7
-RNA_LIB_TYPE=$8
+USE_HISAT2_RNA_SEQ=$8
+HISAT2_RNA_LIB_TYPE=$9
+USE_CUSTOM_RNA_SEQ=${10}
+CUSTOM_RNA_BAM=${11}
+CUSTOM_RNA_LIB_TYPE=${12}
 
 # following lines fix a problem with dconf, solution from https://groups.google.com/g/slurm-users/c/CDCICHG7yLo
 unset XDG_RUNTIME_DIR
@@ -33,6 +37,12 @@ unset XDG_DATA_DIRS
 
 module load miniconda3/22.11.1-1
 source activate GeMoMa_1.9
+module load gcc/11.2.0 samtools/1.16.1
+
+if [[ "${USE_CUSTOM_RNA_SEQ}" == "YES" ]]; then
+	# make sure custom RNA-seq BAM file is sorted
+	samtools sort ${CUSTOM_RNA_BAM} -o ${CUSTOM_RNA_BAM}.sorted.bam --threads ${GEMOMA_THREADS} -m ${GEMOMA_RAM}
+fi
 
 # make GeMoMa output directory
 cd ${ANNOTATION_DIR}
@@ -46,8 +56,13 @@ mkdir ${outDir_combined}
 # make .sh file to run combined GEMOMA
 echo "GeMoMa -Xmx${GEMOMA_RAM} GeMoMaPipeline \\" > run_GeMoMa.combined.sh
 echo "r=MAPPED \\" >> run_GeMoMa.combined.sh
-echo "ERE.m=${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam \\" >> run_GeMoMa.combined.sh
-echo "ERE.s=${RNA_LIB_TYPE} \\" >> run_GeMoMa.combined.sh
+if [[ "${USE_HISAT2_RNA_SEQ}" == "YES" ]]; then
+	echo "ERE.m=${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam \\" >> run_GeMoMa.combined.sh
+	echo "ERE.s=${HISAT2_RNA_LIB_TYPE} \\" >> run_GeMoMa.combined.sh
+if [[ "${USE_CUSTOM_RNA_SEQ}" == "YES" ]]; then
+	echo "ERE.m=${CUSTOM_RNA_BAM}.sorted.bam \\" >> run_GeMoMa.combined.sh
+	echo "ERE.s=${CUSTOM_RNA_LIB_TYPE} \\" >> run_GeMoMa.combined.sh
+fi
 echo "threads=${GEMOMA_THREADS} \\" >> run_GeMoMa.combined.sh
 echo "AnnotationFinalizer.r=NO \\" >> run_GeMoMa.combined.sh
 echo "p=false \\" >> run_GeMoMa.combined.sh
