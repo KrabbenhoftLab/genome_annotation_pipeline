@@ -39,12 +39,18 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 ## Usage
 
 First, clone this repository. 
+```
+git clone https://github.com/KrabbenhoftLab/genome_annotation_pipeline.git
+```
+
 Next, rename the cloned repository from `genome_annotation_pipeline` to something informative.
 For example: 
 ```
 mv genome_annotation_pipeline MY_SPECIES_genome_annotation
 ```
 This renamed directory is the `ANNOTATION_DIR` in your config file and will contain all of your data and results. 
+
+To see help options, run `./genome-annotation -h`.
 
 Before running the pipeline, be sure to set all of the variables in the `config.txt` file.
 
@@ -59,12 +65,10 @@ When starting a new genome annotation, your directory structure should look like
   - `genome-annotation` executable (from this repository)
   - config.txt (from this repository)
 
-To see help options, run `./genome-annotation -h`.
-
 To perform a step of the pipeline, run `./genome-annotation -s 1 -c config.txt`. 
 Pipeline steps should be performed sequentially, except for steps 5 and 6, which can run simultaneously.
 
 Want to rerun part (or all) of the pipeline with different data or settings?
-Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (ESPECIALLY THE ANNOTATION_DIR VARIABLES). 
-Then rerun the pipeline within this new directory
+Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (making sure to update the ANNOTATION_DIR variables). 
+Then rerun the pipeline within the new directory.
 This is the best way to avoid accidentally overwriting your previous annotation files.
