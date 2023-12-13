@@ -38,7 +38,7 @@ else
     echo "${NCBI_TARGET_GENOMES} is not formatted correctly"
     echo "check to make sure the file contains two tab-delimited columns"
     echo "your columns might be space-delimited"
-    echo "exit 1"
+    exit 1
 fi
 
 
