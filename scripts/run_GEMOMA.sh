@@ -80,7 +80,7 @@ GeMoMa -Xmx${GEMOMA_RAM} Extractor \
  g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
  a=${outDir_combined}/final_annotation.gff;
 
-mv ${outDir_combined}/proteins_1.fasta ${outDir_combined}/proteins.all.fasta
+mv ${outDir_combined}/proteins.fasta ${outDir_combined}/proteins.all.fasta
 
 # get longest isoform of each gene
 AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0.sif"
@@ -94,4 +94,4 @@ GeMoMa -Xmx${GEMOMA_RAM} Extractor \
  g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
  a=${outDir_combined}/final_annotation.longest_isoform.gff;
 
-mv ${outDir_combined}/proteins_2.fasta ${outDir_combined}/proteins.longest_isoform.fasta
+mv ${outDir_combined}/proteins_1.fasta ${outDir_combined}/proteins.longest_isoform.fasta

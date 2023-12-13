@@ -28,6 +28,16 @@ cd ${ANNOTATION_DIR}/${NCBI_DOWNLOAD_DIR}
 module load miniconda3/22.11.1-1
 source activate ncbi_datasets
 
+# make sure the input file is correctly formatted, two columns and tab delimited
+bad=$(awk -F "\t" 'NF != 2' ${NCBI_TARGET_GENOMES})
+if [ -z "$bad" ]
+then
+      echo "${NCBI_TARGET_GENOMES} is not formatted correctly"
+      echo "check to make sure the file contains two tab-delimited columns"
+      echo "your columns might be space-delimited"
+      exit
+fi
+
 while read p
 do
   IFS=$'\t'
