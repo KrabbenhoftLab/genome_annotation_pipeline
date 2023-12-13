@@ -30,14 +30,17 @@ source activate ncbi_datasets
 
 # make sure the input file is correctly formatted, two columns and tab delimited
 bad=$(awk -F "\t" 'NF != 2' ${NCBI_TARGET_GENOMES})
-if [ -z "$bad" ];
-then;
-else;
-      echo "${NCBI_TARGET_GENOMES} is not formatted correctly";
-      echo "check to make sure the file contains two tab-delimited columns";
-      echo "your columns might be space-delimited";
-      exit 1;
-fi;
+
+if [ -z "$bad" ]
+then
+    echo "${NCBI_TARGET_GENOMES} is properly formatted, downloading now"
+else
+    echo "${NCBI_TARGET_GENOMES} is not formatted correctly"
+    echo "check to make sure the file contains two tab-delimited columns"
+    echo "your columns might be space-delimited"
+    echo "exit 1"
+fi
+
 
 while read p
 do
