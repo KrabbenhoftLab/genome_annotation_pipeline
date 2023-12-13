@@ -70,5 +70,5 @@ Pipeline steps should be performed sequentially, except for steps 5 and 6, which
 
 Want to rerun part (or all) of the pipeline with different data or settings?
 Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (making sure to update the ANNOTATION_DIR variables). 
-Then rerun the pipeline within this new directory
+Then rerun the pipeline within the new directory.
 This is the best way to avoid accidentally overwriting your previous annotation files.
