@@ -69,6 +69,6 @@ To perform a step of the pipeline, run `./genome-annotation -s 1 -c config.txt`.
 Pipeline steps should be performed sequentially, except for steps 5 and 6, which can run simultaneously.
 
 Want to rerun part (or all) of the pipeline with different data or settings?
-Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (ESPECIALLY THE ANNOTATION_DIR VARIABLES). 
+Simply copy the ANNOTATION_DIR, rename it, delete old results, and edit the `config.txt` file (making sure to update the ANNOTATION_DIR variables). 
 Then rerun the pipeline within this new directory
 This is the best way to avoid accidentally overwriting your previous annotation files.
