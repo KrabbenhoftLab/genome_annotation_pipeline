@@ -25,7 +25,7 @@ AUGUSTUS_SPECIES_NAME=$7
 
 cd ${ANNOTATION_DIR}
 
-BRAKER_SIF="/projects/academic/tkrabben/software/BRAKER3/braker3.sif" # location of BRAKER singularity image
+BRAKER_SIF="/projects/academic/tkrabben/software/BRAKER3/braker3.0.6.sif" # location of BRAKER singularity image
 
 # create directory for BRAKER
 mkdir ${SPECIES}_BRAKER
