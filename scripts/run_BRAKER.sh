@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.3.3
+# v0.3.2
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -29,6 +29,9 @@ BRAKER_SIF="/projects/academic/tkrabben/software/BRAKER3/braker3.0.6.sif" # loca
 
 # create directory for BRAKER
 mkdir ${SPECIES}_BRAKER
+
+#from https://github.com/nf-core/chipseq/issues/123
+export TMPDIR=/tmp/
 
 if [ -f "${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam" ]; then  # if there is an RNA-seq BAM, supply RNA-seq evidence to BRAKER
 
