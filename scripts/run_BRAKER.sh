@@ -43,21 +43,21 @@ if [ -f "${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam" ]; then 
     # need to make a TSEBRA config file, taken from their GitHub
     # could try tinkering with this sometime
     echo "# Weight for each hint source
-    # Values have to be >= 0
-    P 1
-    E 20
-    C 1
-    M 1
-    # Required fraction of supported introns or supported start/stop-codons for a transcript
-    # Values have to be in [0,1]
-    intron_support 1.0
-    stasto_support 2
-    # Allowed difference for each feature 
-    # Values have to be in [0,1]
-    e_1 0.1
-    e_2 0.5
-    e_3 0.05
-    e_4 0.18" > ${SPECIES}_BRAKER/default.cfg
+# Values have to be >= 0
+P 1
+E 20
+C 1
+M 1
+# Required fraction of supported introns or supported start/stop-codons for a transcript
+# Values have to be in [0,1]
+intron_support 1.0
+stasto_support 2
+# Allowed difference for each feature 
+# Values have to be in [0,1]
+e_1 0.1
+e_2 0.5
+e_3 0.05
+e_4 0.18" > ${SPECIES}_BRAKER/default.cfg
 
     singularity run -H ${PWD} ${BRAKER_SIF} tsebra.py -g ${SPECIES}_BRAKER/braker.gtf -k ${SPECIES}_BRAKER/Augustus/augustus.hints.gtf -e ${SPECIES}_BRAKER/hintsfile.gff -c ${SPECIES}_BRAKER/default.cfg -o ${SPECIES}_BRAKER/braker.allAugustus.gtf
 
