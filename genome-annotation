@@ -1,5 +1,5 @@
 #!/bin/bash
-## v0.3.3
+## v0.3.4
 ## Pipeline to annotate genome using BRAKER and GeMoMa
 ## authors: Dan MacGuigan, Nate Backenstose, Christopher Osborne
 
