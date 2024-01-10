@@ -51,6 +51,7 @@ then
 
 	# create .sh to run GeMoMa Annotation Filter
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GAF \\" > GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
+	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "f="start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER} \\"" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 
 	i=0
@@ -66,6 +67,7 @@ then
 
 	# create .sh to run GeMoMa Annotation Finalizer
 	echo "GeMoMa -Xmx${GEMOMA_RAM} AnnotationFinalizer \\" > GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
+	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "a=filtered_predictions.gff \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "rename=NO;" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
@@ -85,7 +87,7 @@ then
 	 a=final_annotation.longest_isoform.gff;
 
 	mv proteins_1.fasta proteins.longest_isoform.fasta
-	
+
 else
 	# make .sh file to run combined GEMOMA
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GeMoMaPipeline \\" > run_GeMoMa.combined.sh
@@ -103,7 +105,7 @@ else
 		temp1=${GFF%.gff} # remove file suffix
 		sp=${temp1##*/} # remove path
 		echo ${sp}
-		GENOME=${GEMOMA_REFS}/${sp}.fasta>
+		GENOME=${GEMOMA_REFS}/${sp}.fasta
 		gt gff3 -tidy -o ${sp}.clean.gff ${GFF} # clean up GFF file, make sure it's GFF3 format
 		echo "s=own \\" >> run_GeMoMa.combined.sh
 		echo "i=${sp} \\" >> run_GeMoMa.combined.sh
