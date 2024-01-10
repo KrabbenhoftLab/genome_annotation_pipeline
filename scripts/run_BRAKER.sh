@@ -36,7 +36,7 @@ export TMPDIR=/tmp/
 if [ -f "${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam" ]; then  # if there is an RNA-seq BAM, supply RNA-seq evidence to BRAKER
 
     echo "starting BRAKER with RNA-seq evidence and protein evidence, sit tight"
-    singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
+    singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam --prot_seq=${GENOME_DIR}/${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
     
     # create annotation keeping all genes predicted by Augustus
 
@@ -64,7 +64,7 @@ e_4 0.18" > ${SPECIES}_BRAKER/default.cfg
 else # if there is no RNA-seq BAM, run BRAKER only with protein evidence
 
     echo "starting BRAKER with only protein evidence, sit tight"
-    singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
+    singularity run -H ${PWD} ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --prot_seq=${GENOME_DIR}/${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${PWD}/${SPECIES}_BRAKER --GENEMARK_PATH=${ETP}/gmes --threads ${BRAKER_THREADS} --gff3
     
 fi
 

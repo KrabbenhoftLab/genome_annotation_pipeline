@@ -64,13 +64,14 @@ NCBI_DOWNLOAD_DIR="NCBI_genomes" # directory for your downloaded files, will be 
 AUGUSTUS_SPECIES_NAME="Lepomis_peltastes" # name for the Augustus model, BRAKER will throw error if this species already exists
 BRAKER_THREADS=20
 BRAKER_RAM="400G"
-## for PROT_FASTA, you will need to create a concatenated FASTA file containing all protein evidence
-## you will likely want to include protein data from NCBI for closely related species (STEP 5 of this pipeline)
+## PROT_FASTA = path to a concatenated FASTA file containing all protein evidence
+## IMPORTANT: PROT_FASTA must located within ANNOTATION_DIR_CLUSTER
+## you will likely want to include protein data from NCBI for closely related species (see STEP 5 of this pipeline)
 ## you may also want to include the OrthoDB database
 ## clade-specific OrthoDB V11 databases available here: https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/
 ## to concatenate FASTA files, simply run "cat file1.fasta file2.fasta file3.fasta > concatenated.fasta"
-## you can also do this with gzipped fasta files
-PROT_FASTA="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/protein_data/orthodb.metazoa.ncbiRefSeq.fasta" 
+## note: you can also concatenate gzipped fasta files using "cat" (but all fasta files must be gzipped)
+PROT_FASTA="protein_data/orthodb.metazoa.ncbiRefSeq.fasta" 
 
 ############### GeMoMa options ##############################
 GEMOMA_THREADS=20
