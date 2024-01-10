@@ -52,7 +52,7 @@ then
 	# create .sh to run GeMoMa Annotation Filter
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GAF \\" > GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
-	echo "f="start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER} \\"" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
+	echo "f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\" \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 
 	i=0
 	for GFF in ${GEMOMA_REFS}/*.gff
