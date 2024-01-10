@@ -247,6 +247,8 @@ if [[ "${step}" == 7 ]]; then
 	if [ -z ${CUSTOM_RNA_BAM+x} ]; then echo "  CUSTOM_RNA_BAM is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  CUSTOM_RNA_BAM='$CUSTOM_RNA_BAM'"; fi
 	if [ -z ${CUSTOM_RNA_LIB_TYPE+x} ]; then echo "  CUSTOM_RNA_LIB_TYPE is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  CUSTOM_RNA_LIB_TYPE='$CUSTOM_RNA_LIB_TYPE'"; fi
 	if [ -z ${MASKED_GENOME_FILE+x} ]; then echo "  MASKED_GENOME_FILE is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  MASKED_GENOME_FILE='$MASKED_GENOME_FILE'"; fi
+	if [ -z ${GEMOMA_SCORE_AA_FILTER+x} ]; then echo "  GEMOMA_SCORE_AA_FILTER is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  GEMOMA_SCORE_AA_FILTER='$GEMOMA_SCORE_AA_FILTER'"; fi
+	if [ -z ${GEMOMA_FILTER_ONLY+x} ]; then echo "  GEMOMA_FILTER_ONLY is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  GEMOMA_FILTER_ONLY='$GEMOMA_FILTER_ONLY'"; fi
 	echo ""
 	mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 	if [[ "${USE_HISAT2_RNA_SEQ}" == "YES" ]]; then
@@ -254,8 +256,7 @@ if [[ "${step}" == 7 ]]; then
 	elif [[ "${USE_CUSTOM_RNA_SEQ}" == "YES" ]]; then
 		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA_RNA-seq.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS} ${USE_HISAT2_RNA_SEQ} ${HISAT2_RNA_LIB_TYPE} ${USE_CUSTOM_RNA_SEQ} ${CUSTOM_RNA_BAM} ${CUSTOM_RNA_LIB_TYPE}
 	else
-		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS}
-		
+		sbatch --job-name="${SPECIES}_GEMOMA" --ntasks-per-node=${GEMOMA_THREADS} --mem=${GEMOMA_JOB_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_GEMOMA.err" ./scripts/run_GEMOMA.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${GEMOMA_THREADS} ${GEMOMA_RAM} ${ANNOTATION_DIR_CLUSTER} ${GEMOMA_REFS} ${GEMOMA_SCORE_AA_FILTER} ${GEMOMA_FILTER_ONLY}
 	fi
 fi
 

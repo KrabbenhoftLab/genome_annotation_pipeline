@@ -77,6 +77,8 @@ PROT_FASTA="protein_data/orthodb.metazoa.ncbiRefSeq.fasta"
 GEMOMA_THREADS=20
 GEMOMA_JOB_RAM="400G"
 GEMOMA_RAM="380G" # this must be smaller than the GEMOMA_JOB_RAM
+GEMOMA_SCORE_AA_FILTER="0.75" # filter value for score/aa, default is 0.75, see https://www.jstacs.de/index.php/GeMoMa-Docs
+GEMOMA_FILTER_ONLY="yes" # filter previous GeMoMa run without redoing the full annotation (yes or no)
 ## GEMOMA_REFS is the full path to a directory containing GFF and genome FASTA files for reference species
 ## files must end in .gff or .fasta
 ## file prefixes for GFF and FASTA must match, 
