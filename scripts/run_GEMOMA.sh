@@ -57,7 +57,7 @@ then
 	i=0
 	for GFF in ${GEMOMA_REFS}/*.gff
 	do
-		echo "g=../unfiltered_predictions_from_species_${i}.gff"
+		echo "g=../unfiltered_predictions_from_species_${i}.gff" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 		i=$((i+1))
 	done
 
