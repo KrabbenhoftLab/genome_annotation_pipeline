@@ -95,7 +95,7 @@ else
 	echo "p=false \\" >> run_GeMoMa.combined.sh
 	echo "o=true \\" >> run_GeMoMa.combined.sh
 	echo "outdir=${outDir_combined} \\" >> run_GeMoMa.combined.sh
-	echo "GAF.f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\";" >> run_GeMoMa.combined.sh
+	echo "GAF.f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\" \\" >> run_GeMoMa.combined.sh
 
 	# loop through each file in GEMOMA_REFS
 	conda activate genometools-1.6.2
