@@ -41,7 +41,7 @@ echo "OTHER_PREDICTION	GeMoMa	${GEMOMA_WEIGHT}" >> weights.txt
 echo "starting EVM run..."
 singularity exec -H ${ANNOTATION_DIR} ${EVM_SIF} EVidenceModeler \
                    --sample_id ${SPECIES} \
-                   --genome ../${GENOME_DIR}/${MASKED_GENOME_FILE} \
+                   --genome ${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
                    --weights ./weights.txt \
                    --gene_predictions ./evidence/combined.gff3 \
                    --segmentSize 1000000 \
