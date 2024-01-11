@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.3.4
+# v0.3.5
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -37,19 +37,17 @@ source activate GeMoMa_1.9
 
 # make GeMoMa output directory
 cd ${ANNOTATION_DIR}
-mkdir ${SPECIES}_GeMoMa
+mkdir -p ${SPECIES}_GeMoMa
 cd ${SPECIES}_GeMoMa
 
 # output directory for combined predictions
 outDir_combined="GeMoMa_combined"
-mkdir ${outDir_combined}
+mkdir -p ${outDir_combined}
+mkdir -p ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}
 
 if [ ${GEMOMA_FILTER_ONLY} = "yes" ]
 then
-	cd ${outDir_combined}
-	
-	mkdir filter_score_${GEMOMA_SCORE_AA_FILTER}
-	cd filter_score_${GEMOMA_SCORE_AA_FILTER}
+	cd ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}
 
 	# create .sh to run GeMoMa Annotation Filter
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GAF \\" > GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
@@ -58,7 +56,7 @@ then
 	i=0
 	for GFF in ${GEMOMA_REFS}/*.gff
 	do
-		echo "g=../unfiltered_predictions_from_species_${i}.gff \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
+		echo "g=\"../unfiltered_predictions_from_species_${i}.gff\" \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 		i=$((i+1))
 	done
 	
@@ -89,7 +87,7 @@ then
 	 g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
 	 a=final_annotation.longest_isoform.gff;
 
-	mv proteins_1.fasta proteins.longest_isoform.fasta
+	mv proteins.fasta proteins.longest_isoform.fasta
 
 else
 	# make .sh file to run combined GEMOMA
@@ -99,6 +97,7 @@ else
 	echo "p=false \\" >> run_GeMoMa.combined.sh
 	echo "o=true \\" >> run_GeMoMa.combined.sh
 	echo "outdir=${outDir_combined} \\" >> run_GeMoMa.combined.sh
+	echo "f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\";" >> run_GeMoMa.combined.sh
 
 	# loop through each file in GEMOMA_REFS
 	conda activate genometools-1.6.2
@@ -145,4 +144,10 @@ else
 	 a=${outDir_combined}/final_annotation.longest_isoform.gff;
 
 	mv ${outDir_combined}/proteins_1.fasta ${outDir_combined}/proteins.longest_isoform.fasta
+	
+	# move outputs to filter directory
+	mv ${outDir_combined}/proteins.longest_isoform.fasta ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/proteins.longest_isoform.fasta
+	mv ${outDir_combined}/final_annotation.gff ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.gff
+	mv ${outDir_combined}/final_annotation.longest_isoform.gff ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff
+	mv ${outDir_combined}/proteins.all.fasta  ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/proteins.all.fasta
 fi

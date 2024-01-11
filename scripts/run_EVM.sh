@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.3.4
+# v0.3.5
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -21,6 +21,7 @@ ANNOTATION_DIR=$4
 BRAKER_WEIGHT=$5 # EVM weight for BRAKER predictions
 GEMOMA_WEIGHT=$6 # EVM weight for GeMoMa predictions
 EVM_THREADS=$7 # threads for EVM
+GEMOMA_SCORE_AA_FILTER=$8 # which GeMoMa filtered dataset to use?
 
 EVM_SIF="/projects/academic/tkrabben/software/EvidenceModeler/EVidenceModeler/Docker/EVidenceModeler.latest.simg"
 
@@ -30,7 +31,7 @@ cd ${ANNOTATION_DIR}
 cat ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence/*EVM.gff3 > ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence/combined.gff3
 
 # create evidence weights file
-cd ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}
+cd ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}
 echo "ABINITIO_PREDICTION	gmst	${BRAKER_WEIGHT}" > weights.txt
 echo "ABINITIO_PREDICTION	AUGUSTUS	${BRAKER_WEIGHT}" >> weights.txt
 echo "ABINITIO_PREDICTION	GeneMark.hmm3	${BRAKER_WEIGHT}" >> weights.txt
