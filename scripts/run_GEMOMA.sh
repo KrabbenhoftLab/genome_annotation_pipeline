@@ -52,14 +52,15 @@ then
 	# create .sh to run GeMoMa Annotation Filter
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GAF \\" > GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
-	echo "f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\" \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 
 	i=0
 	for GFF in ${GEMOMA_REFS}/*.gff
 	do
-		echo "g=../unfiltered_predictions_from_species_${i}.gff" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
+		echo "g=../unfiltered_predictions_from_species_${i}.gff \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 		i=$((i+1))
 	done
+	
+	echo "f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\";" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 
 	# run GeMoMa Annotation Filter
 	conda activate GeMoMa_1.9
