@@ -28,7 +28,7 @@ EVM_SIF="/projects/academic/tkrabben/software/EvidenceModeler/EVidenceModeler/Do
 cd ${ANNOTATION_DIR}
 
 # combine predictions into one file
-cat ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence/*EVM.gff3 > ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}/evidence/combined.gff3
+cat ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}/evidence/*EVM.gff3 > ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}/evidence/combined.gff3
 
 # create evidence weights file
 cd ${SPECIES}_EVM_B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}
