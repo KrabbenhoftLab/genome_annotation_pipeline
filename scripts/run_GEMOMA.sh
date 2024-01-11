@@ -51,7 +51,6 @@ then
 
 	# create .sh to run GeMoMa Annotation Filter
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GAF \\" > GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
-	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.filter.${GEMOMA_SCORE_AA_FILTER}.sh
 
 	i=0
 	for GFF in ${GEMOMA_REFS}/*.gff
@@ -68,7 +67,6 @@ then
 
 	# create .sh to run GeMoMa Annotation Finalizer
 	echo "GeMoMa -Xmx${GEMOMA_RAM} AnnotationFinalizer \\" > GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
-	echo "threads=${GEMOMA_THREADS} \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "a=filtered_predictions.gff \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \\" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
 	echo "rename=NO;" >> GeMoMa.finalizer.${GEMOMA_SCORE_AA_FILTER}.sh
