@@ -46,6 +46,8 @@ mkdir ${outDir_combined}
 
 if [ ${GEMOMA_FILTER_ONLY} = "yes" ]
 then
+	cd ${outDir_combined}
+	
 	mkdir filter_score_${GEMOMA_SCORE_AA_FILTER}
 	cd filter_score_${GEMOMA_SCORE_AA_FILTER}
 
