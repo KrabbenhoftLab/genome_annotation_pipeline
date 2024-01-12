@@ -1,4 +1,3 @@
-dmacguig@vortex-future:~/project/MacGuigan/genome_annotations/ICY_annotation_test$ cat scripts/generate_repeat_lib.sh
 #!/bin/bash
 # v0.3.6
 #SBATCH --qos=general-compute
