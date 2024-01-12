@@ -24,6 +24,7 @@ GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome 
 USE_CLUSTER="yes" # run repeat masking and modeling on the cluster (yes or no)?
 REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
 RMODEL_THREADS=20 # how many threads for repeat modeling 
+RMODEL_RAM="400G" # how much RAM for repeat modeling
 ## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
 ## RMBlast jobs will use 4 cores each, so on a machine with 12 cores and running with
 ## RMBlast you would use RMASK_THREADS=3 to fully utilize the machine.
