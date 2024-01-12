@@ -127,7 +127,7 @@ if [[ "${step}" == 1 ]]; then
 		dos2unix ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} # make sure genome has UNIX line endings
 		echo "starting RepeatModeler on the cluster"
 		mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
-		sbatch --job-name="${SPECIES}_RMASK" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" ./scripts/generate_repeat_lib_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS}
+		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" ./scripts/generate_repeat_lib_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS}
 	else
 		dos2unix ${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${GENOME_FILE} # make sure genome has UNIX line endings
 		echo "starting RepeatModeler on Bottlerocker"
