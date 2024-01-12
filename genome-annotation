@@ -152,11 +152,18 @@ if [[ "${step}" == 2 ]]; then
 	if [ -z ${RMASK_THREADS+x} ]; then echo "  RMASK_THREADS is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RMASK_THREADS='$RMASK_THREADS'"; fi
 	if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "  REPEAT_LIBRARY_NAME is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  REPEAT_LIBRARY_NAME='$REPEAT_LIBRARY_NAME'"; fi
 	if [ -z ${RM_SPECIES+x} ]; then echo "  RM_SPECIES is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RM_SPECIES='$RM_SPECIES'"; fi
-	if [ -z ${BLAST_CPUS+x} ]; then echo "  BLAST_CPUS is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  BLAST_CPUS='$BLAST_CPUS'"; fi
 	echo ""
-	mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
-	source activate maker-3.01.03
-	bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_repeatMasker.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES} ${BLAST_CPUS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.error"
+	if [ ${USE_CLUSTER} = "yes" ]
+	then
+		mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
+		echo "starting RepeatMasker on the cluster"
+		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" /scripts/run_repeatMasker_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES}
+	else
+		mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
+		echo "starting RepeatMasker on the Bottlerocket"
+		source activate maker-3.01.03
+		bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_repeatMasker.sh ${SPECIES} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_repeatMasker.error"
+	fi
 fi
 
 ### STEP 3 ###
