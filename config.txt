@@ -25,22 +25,15 @@ USE_CLUSTER="yes" # run repeat masking and modeling on the cluster (yes or no)?
 REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
 RMODEL_THREADS=20 # how many threads for repeat modeling 
 RMODEL_RAM="400G" # how much RAM for repeat modeling
-RMASK_THREADS=24 # how many threads for repeat masking (use a multiple of 4 for maximum efficiency)
-RM_SPECIES="vertebrata" 
-MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
-
-
-## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
-## RMBlast jobs will use 4 cores each, so on a machine with 12 cores and running with
-## RMBlast you would use RMASK_THREADS=3 to fully utilize the machine.
-RMASK_THREADS=4 
+RMASK_THREADS=20 # how many threads for repeat masking (use a multiple of 4 for maximum efficiency)
 ## RM_SPECIES is the species or clade to use for repeat masking
 ## to find a species or clade of interest, run the following three commands on Bottlerocket
 ## 'source activate maker-3.01.03'
 ## 'cd /home/krablab/Documents/apps/RepeatMasker/Libraries'
 ## 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 ## this should print a list of potential matches for you to choose from
-BLAST_CPUS=20 # for use with steps 1B (reapeat masking)
+RM_SPECIES="vertebrata" 
+MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
 
 ############### HISAT2 options ##############################
 ## NOTE: HISAT2 is optional but recommended, requires Illumina RNA-seq data, preferably from the species you are annotating

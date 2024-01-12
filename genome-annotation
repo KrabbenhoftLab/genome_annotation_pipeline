@@ -157,7 +157,7 @@ if [[ "${step}" == 2 ]]; then
 	then
 		mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
 		echo "starting RepeatMasker on the cluster"
-		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" /scripts/run_repeatMasker_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES}
+		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" ./scripts/run_repeatMasker_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMASK_THREADS} ${RM_SPECIES}
 	else
 		mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 		echo "starting RepeatMasker on the Bottlerocket"
