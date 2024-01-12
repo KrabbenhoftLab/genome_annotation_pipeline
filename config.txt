@@ -21,6 +21,7 @@ GENOME_DIR="Lpel_assembly" # directory containing your genome assembly, needs to
 GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be located inside of GENOME_DIR
 
 ############### Repeat modeling/masking options ############
+USE_CLUSTER="yes" # run repeat masking and modeling on the cluster (yes or no)?
 REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
 RMODEL_THREADS=20 # how many threads for repeat modeling 
 ## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
