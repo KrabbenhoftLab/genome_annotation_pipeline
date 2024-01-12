@@ -152,6 +152,8 @@ if [[ "${step}" == 2 ]]; then
 	if [ -z ${RMASK_THREADS+x} ]; then echo "  RMASK_THREADS is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RMASK_THREADS='$RMASK_THREADS'"; fi
 	if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "  REPEAT_LIBRARY_NAME is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  REPEAT_LIBRARY_NAME='$REPEAT_LIBRARY_NAME'"; fi
 	if [ -z ${RM_SPECIES+x} ]; then echo "  RM_SPECIES is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RM_SPECIES='$RM_SPECIES'"; fi
+	if [ -z ${RMASK_RAM+x} ]; then echo "  RMASK_RAM is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RMASK_RAM='$RMASK_RAM'"; fi
+	if [ -z ${USE_CLUSTER+x} ]; then echo "  USE_CLUSTER is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  USE_CLUSTER='$USE_CLUSTER'"; fi
 	echo ""
 	if [ ${USE_CLUSTER} = "yes" ]
 	then
