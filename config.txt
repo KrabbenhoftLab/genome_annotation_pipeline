@@ -26,6 +26,7 @@ REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
 RMODEL_THREADS=20 # how many threads for repeat modeling 
 RMODEL_RAM="400G" # how much RAM for repeat modeling
 RMASK_THREADS=20 # how many threads for repeat masking (use a multiple of 4 for maximum efficiency)
+RMASK_RAM="400G" # how much RAM for repeat masking
 ## RM_SPECIES is the species or clade to use for repeat masking
 ## to find a species or clade of interest, run the following three commands on Bottlerocket
 ## 'source activate maker-3.01.03'
