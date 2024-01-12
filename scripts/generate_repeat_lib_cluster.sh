@@ -19,11 +19,11 @@ module load gcc/11.2.0 openmpi/4.1.1 repeatmodeler/2.0.4
 
 # input variables passed from AISO_annotation_pipeline.sh
 SPECIES=$1 # short name for your species
-ANNOTATION_DIR_CLUSTER=$3
-GENOME_DIR=$4 # directory containing your genome assembly
-GENOME_FILE=$5 # your genome assembly
-REPEAT_LIBRARY_NAME=$6 # name for your repeat library
-RM_THREADS=$7 # Specify the number of parallel search jobs to run. RMBlast jobs will
+ANNOTATION_DIR_CLUSTER=$2
+GENOME_DIR=$3 # directory containing your genome assembly
+GENOME_FILE=$4 # your genome assembly
+REPEAT_LIBRARY_NAME=$5 # name for your repeat library
+RM_THREADS=$6 # Specify the number of parallel search jobs to run. RMBlast jobs will
               # use 4 cores each and ABBlast jobs will use a single core each. i.e.
               # on a machine with 12 cores and running with RMBlast you would use
 
