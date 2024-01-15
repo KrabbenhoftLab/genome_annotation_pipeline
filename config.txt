@@ -25,6 +25,12 @@ USE_CLUSTER="yes" # run repeat masking and modeling on the cluster (yes or no)?
 REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
 RMODEL_THREADS=20 # how many threads for repeat modeling 
 RMODEL_RAM="400G" # how much RAM for repeat modeling
+RUN_LTR="yes" # run LTR_Harvest and LTR_retreiver (yes or no); recommended, but may fail for some genomes
+CONTINUE_RMODEL="no" # continue RepeatModeler run that terminated early (yes or no)
+## CONTINUE_RMODEL_DIR is the RepeatModeler directory containing a partially complete run to resume
+## found within SPECIES_RepeatModeler
+## will be named something like "RM_NUMBERS.DATE"
+CONTINUE_RMODEL_DIR="" 
 RMASK_THREADS=20 # how many threads for repeat masking (use a multiple of 4 for maximum efficiency)
 RMASK_RAM="400G" # how much RAM for repeat masking
 ## RM_SPECIES is the species or clade to use for repeat masking

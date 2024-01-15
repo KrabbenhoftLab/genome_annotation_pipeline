@@ -120,14 +120,17 @@ if [[ "${step}" == 1 ]]; then
 	if [ -z ${REPEAT_LIBRARY_NAME+x} ]; then echo "  REPEAT_LIBRARY_NAME is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  REPEAT_LIBRARY_NAME='$REPEAT_LIBRARY_NAME'"; fi
 	if [ -z ${RMODEL_THREADS+x} ]; then echo "  RMODEL_THREADS is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RMODEL_THREADS='$RMODEL_THREADS'"; fi
 	if [ -z ${RMODEL_RAM+x} ]; then echo "  RMODEL_RAM is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RMODEL_RAM='$RMODEL_RAM'"; fi
+	if [ -z ${RUN_LTR+x} ]; then echo "  RUN_LTR is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  RUN_LTR='$RUN_LTR'"; fi
 	if [ -z ${USE_CLUSTER+x} ]; then echo "  USE_CLUSTER is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  USE_CLUSTER='$USE_CLUSTER'"; fi
+	if [ -z ${CONTINUE_RMODEL+x} ]; then echo "  CONTINUE_RMODEL is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  CONTINUE_RMODEL='$CONTINUE_RMODEL'"; fi
+	if [ -z ${CONTINUE_RMODEL_DIR+x} ]; then echo "  CONTINUE_RMODEL_DIR is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  CONTINUE_RMODEL_DIR='$CONTINUE_RMODEL_DIR'"; fi
 	echo ""
 	if [ ${USE_CLUSTER} = "yes" ]
 	then
 		dos2unix ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} # make sure genome has UNIX line endings
 		echo "starting RepeatModeler on the cluster"
 		mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
-		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" ./scripts/generate_repeat_lib_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS}
+		sbatch --job-name="${SPECIES}_RMODEL" --ntasks-per-node=${RMODEL_THREADS} --mem=${RMODEL_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_generate_repeat_lib.err" ./scripts/generate_repeat_lib_cluster.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${GENOME_DIR} ${GENOME_FILE} ${REPEAT_LIBRARY_NAME} ${RMODEL_THREADS} ${RUN_LTR} ${CONTINUE_RMODEL} ${CONTINUE_RMODEL_DIR}
 	else
 		dos2unix ${ANNOTATION_DIR_BOTTLEROCKET}/${GENOME_DIR}/${GENOME_FILE} # make sure genome has UNIX line endings
 		echo "starting RepeatModeler on Bottlerocker"
