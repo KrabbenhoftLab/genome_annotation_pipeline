@@ -5,7 +5,7 @@
 #SBATCH --account=tkrabben
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
-#SBATCH --reservation=ubhpc-future
+
 
 SPECIES=$1
 ANNOTATION_DIR_CLUSTER=$2

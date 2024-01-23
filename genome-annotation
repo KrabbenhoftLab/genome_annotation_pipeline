@@ -229,8 +229,6 @@ if [[ "${step}" == 4 ]]; then
 	fi
 fi
 
-USE_CLUSTER_HISAT
-
 ### STEP 5 ###
 ## DOWNLOAD REFERENCE DATA FROM NCBI
 ## on the UB CCR Vortex cluster

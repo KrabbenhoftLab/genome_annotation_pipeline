@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --constraint=AVX512
 #SBATCH --export=NONE
-#SBATCH --reservation=ubhpc-future
+
 
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
