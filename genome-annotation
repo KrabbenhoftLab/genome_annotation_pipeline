@@ -222,7 +222,7 @@ if [[ "${step}" == 4 ]]; then
 	if [ ${USE_CLUSTER_HISAT} = "yes" ]
 	then
 		mkdir -p "${ANNOTATION_DIR_CLUSTER}/logFiles" # create logFiles directory
-		sbatch --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_HISAT2.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_HISAT2.error" --ntasks-per-node=${HISAT_THREADS} --mem=${HISAT_RAM} ${ANNOTATION_DIR_CLUSTER}/scripts/run_HISAT2_cluster.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_DIR} ${RNA_FILES} ${HISAT_THREADS} ${ANNOTATION_DIR_CLUSTER}
+		sbatch --job-name="${SPECIES}_HISAT2" --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_HISAT2.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_HISAT2.error" --ntasks-per-node=${HISAT_THREADS} --mem=${HISAT_RAM} ${ANNOTATION_DIR_CLUSTER}/scripts/run_HISAT2_cluster.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_DIR} ${RNA_FILES} ${HISAT_THREADS} ${ANNOTATION_DIR_CLUSTER}
 	else
 		mkdir -p "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles" # create logFiles directory
 		bash "${ANNOTATION_DIR_BOTTLEROCKET}"/scripts/run_HISAT2.sh ${SPECIES} ${GENOME_DIR} ${MASKED_GENOME_FILE} ${RNA_DIR} ${RNA_FILES} ${HISAT_THREADS} > "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.out" 2> "${ANNOTATION_DIR_BOTTLEROCKET}/logFiles/${SPECIES}_HISAT2.error"
