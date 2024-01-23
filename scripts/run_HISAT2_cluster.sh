@@ -1,5 +1,14 @@
 #!/bin/bash
 # v0.4.0
+#SBATCH --qos=general-compute
+#SBATCH --partition=general-compute
+#SBATCH --account=tkrabben
+#SBATCH --time=72:00:00
+#SBATCH --nodes=1
+#SBATCH --constraint=AVX512
+#SBATCH --export=NONE
+#SBATCH --reservation=ubhpc-future
+
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
 
@@ -12,10 +21,17 @@ MASKED_GENOME_FILE=$3 # your genome assembly
 RNA_DIR=$4 # RNA read 1 files
 RNA_FILES=$5 # RNA read 2 files
 HISAT_THREADS=$6
+ANNOTATION_DIR_CLUSTER=$7
+
+# load required modules and conda environment
+module load miniconda3/22.11.1-1
+source activate HISAT2
+module load gcc/11.2.0 samtools/1.16.1 
+
+cd ${ANNOTATION_DIR_CLUSTER}
 
 # create directory for HISAT2
 mkdir ${SPECIES}_HISAT2
-
 
 # first generate index files for reference genome
 echo "starting to index reference genome"
@@ -31,9 +47,9 @@ cd ${SPECIES}_HISAT2
 while read line; do
 	line_arr=($line)
 	if [ ${#line_arr[@]} -eq 1 ]; then # unpaired RNA-seq reads
-		hisat2 -p ${HISAT_THREADS} -q -U ${RNA_DIR}/${line_arr[0]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
+		hisat2 -p ${HISAT_THREADS} -q -U ${ANNOTATION_DIR_CLUSTER}/${RNA_DIR}/${line_arr[0]} -x ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
 	elif [ ${#line_arr[@]} -eq 2 ]; then # paired RNA-seq reads
-		hisat2 -p ${HISAT_THREADS} -q -1 ${RNA_DIR}/${line_arr[0]} -2 ${RNA_DIR}/${line_arr[1]} -x ../${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
+		hisat2 -p ${HISAT_THREADS} -q -1 ${ANNOTATION_DIR_CLUSTER}/${RNA_DIR}/${line_arr[0]} -2 ${ANNOTATION_DIR_CLUSTER}/${RNA_DIR}/${line_arr[1]} -x ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${MASKED_GENOME_FILE%.fasta} -S ${SPECIES}.${line_arr[0]}.rna.sam
 	else
 		echo "${line} --> contains more than two files"
 	fi
@@ -44,7 +60,7 @@ while read line; do
 	rm ${SPECIES}.${line_arr[0]}.rna.bam
 	echo "finished mapping ${line}"
 
-done < ../${RNA_FILES}
+done < ${ANNOTATION_DIR_CLUSTER}/${RNA_FILES}
 
 echo "finished mapping all files"
 echo "merging bam files"
