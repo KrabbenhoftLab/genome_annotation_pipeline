@@ -37,12 +37,12 @@ cd ${ANNOTATION_DIR_CLUSTER}
 mkdir ${SPECIES}_RepeatModeler
 cd ${SPECIES}_RepeatModeler
 
-# load conda module
-#source activate RepeatModeler-2.0.4
-
 # make a blast database from the genome
 makeblastdb -in ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} -dbtype nucl -parse_seqids
 BuildDatabase -name ${REPEAT_LIBRARY_NAME} ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
+
+# set LIBDIR, advice from Tony Kew at CCR
+export LIBDIR="/util/software/data/RepeatMasker/4.1.5/Libraries"
 
 # run RepeatModeler
 if [ ${CONTINUE_RMODEL} = "yes" ]
