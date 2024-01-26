@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 # v0.4.0
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
 #SBATCH --mem=100G
-#SBATCH --constraint=AVX512
+##SBATCH --constraint=AVX512
 #SBATCH --export=NONE
 
 # Pipeline to perform gene prediction and annotation

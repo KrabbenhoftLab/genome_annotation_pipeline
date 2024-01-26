@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/bash -l
 # v0.4.0
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
-#SBATCH --constraint=AVX512
+##SBATCH --constraint=AVX512
 #SBATCH --export=NONE
 
 
@@ -58,7 +58,7 @@ filterbyname.sh in=uniprot_sprot.fasta out=uniprot_sprot.TEfiltered.fasta names=
 
 # load repeatmasker module
 module purge
-module load gcc/11.2.0 openmpi/4.1.1 repeatmasker/4.1.5
+module load gcc/11.2.0 openmpi/4.1.1 repeatmodeler/2.0.4.KRAB
 
 # filter out sequences with blast hit, excluding the 50 bp flanking the matched region on each side
 # note that ProtExcluder requires "esl-sfetch" from the Easel library

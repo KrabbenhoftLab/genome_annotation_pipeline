@@ -1,13 +1,12 @@
-#!/bin/bash
+#!/bin/bash -l
 # v0.4.0
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
-#SBATCH --constraint=AVX512
+##SBATCH --constraint=AVX512
 #SBATCH --export=NONE
-
 
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
@@ -15,7 +14,10 @@
 # GENERATE CUSTOM REPEAT LIBRARY
 
 # load modules
-module load gcc/11.2.0 openmpi/4.1.1 repeatmodeler/2.0.4
+module load gcc/11.2.0 openmpi/4.1.1 repeatmodeler/2.0.4.KRAB
+
+whereis RepeatMasker
+whereis RepeatModeler
 
 # input variables passed from AISO_annotation_pipeline.sh
 SPECIES=$1 # short name for your species
@@ -40,9 +42,6 @@ cd ${SPECIES}_RepeatModeler
 # make a blast database from the genome
 makeblastdb -in ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} -dbtype nucl -parse_seqids
 BuildDatabase -name ${REPEAT_LIBRARY_NAME} ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
-
-# set LIBDIR, advice from Tony Kew at CCR
-export LIBDIR="/util/software/data/RepeatMasker/4.1.5/Libraries"
 
 # run RepeatModeler
 if [ ${CONTINUE_RMODEL} = "yes" ]
