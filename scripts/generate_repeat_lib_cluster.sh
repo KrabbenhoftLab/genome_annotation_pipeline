@@ -61,8 +61,5 @@ else
 	fi
 fi
 
-# continue RepeatModeler run if necessary, you will need to modify "-recoverDir"
-#RepeatModeler -database ${REPEAT_LIBRARY_NAME} -threads ${RM_THREADS} -LTRStruct -recoverDir RM_18866.FriApr101507532020
-
 # run RepeatClassifier if it fails, you will need to modify the line below
 #RepeatClassifier -consensi ./RM_18866.FriApr101507532020/families.fa -stockholm ./RM_18866.FriApr101507532020/families.stk
