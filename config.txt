@@ -44,7 +44,7 @@ MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" 
 
 ############### HISAT2 options ##############################
 ## NOTE: HISAT2 is optional but recommended, requires Illumina RNA-seq data, preferably from the species you are annotating
-USE_CLUSTER_HISAT="yes"
+USE_CLUSTER_HISAT="yes" # run HISAT2 on the cluster (yes or no)?
 RNA_DIR="RNA_reads" # path to directory containing Illumina RNA-seq reads (fastq files), needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
 ## RNA_FILES is a tab separated file containing RNA-seq fastq files, one sample per line
 ## needs to be located in ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
