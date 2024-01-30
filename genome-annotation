@@ -38,6 +38,9 @@ Help()
    echo "Step 7: GeMoMa [cluster]"
    echo "Step 8: merge BRAKER and GeMoMa annotations with EvidenceModeler [cluster]"
    echo "Step 9: run eggNOG mapper to add functional annotations"
+   echo "Step 10: generate reciprocal best DIAMOND hits between your annotation and a database"
+   echo "         this database could be the proteome of an individual species, or a larger"
+   echo "         database like UniProt-SwissProt"
    echo ""
    echo "Options:"
    echo "s   Which step would you like to run? Enter number 1 through 7"
@@ -361,4 +364,25 @@ if [[ "${step}" == 9 ]]; then
 	mkdir -p ${SPECIES}_eggNOG/B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}
 	echo "submitting eggNOG mapper job"
 	sbatch --job-name="${SPECIES}_eggNOG" --ntasks-per-node=${EGG_THREADS} --mem=${EGG_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}_EVM_eggNOG.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}_EVM_eggNOG.err" ./scripts/run_eggNOG.sh ${SPECIES}  ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT_EGG} ${GEMOMA_WEIGHT_EGG} ${EGG_THREADS} ${GEMOMA_SCORE_AA_FILTER} ${EGGNOG_OPTIONS}
+fi
+
+### STEP 10 ###
+## RUN DIAMOND AND GET RECIPROCAL BEST HITS
+## on the UB CCR Vortex cluster
+if [[ "${step}" == 10 ]]; then
+	echo ""
+	echo "INPUT VARIABLES as specified in your config file:"
+	if [ -z ${ANNOTATION_DIR_BOTTLEROCKET+x} ]; then echo "  ANNOTATION_DIR_BOTTLEROCKET is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  ANNOTATION_DIR_BOTTLEROCKET='$ANNOTATION_DIR_BOTTLEROCKET'"; fi
+	if [ -z ${ANNOTATION_DIR_CLUSTER+x} ]; then echo "  ANNOTATION_DIR_CLUSTER is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  ANNOTATION_DIR_CLUSTER='$ANNOTATION_DIR_CLUSTER'"; fi
+	if [ -z ${SPECIES+x} ]; then echo "  SPECIES is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  SPECIES='$SPECIES'"; fi
+	if [ -z ${BRAKER_WEIGHT_DIAMOND+x} ]; then echo "  BRAKER_WEIGHT_DIAMOND is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  BRAKER_WEIGHT_DIAMOND='$BRAKER_WEIGHT_DIAMOND'"; fi
+	if [ -z ${GEMOMA_WEIGHT_DIAMOND+x} ]; then echo "  GEMOMA_WEIGHT_DIAMOND is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  GEMOMA_WEIGHT_DIAMOND='$GEMOMA_WEIGHT_DIAMOND'"; fi
+	if [ -z ${GEMOMA_SCORE_AA_FILTER+x} ]; then echo "  GEMOMA_SCORE_AA_FILTER is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  GEMOMA_SCORE_AA_FILTER='$GEMOMA_SCORE_AA_FILTER'"; fi
+	if [ -z ${DATABASE+x} ]; then echo "  DATABASE is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  DATABASE='$DATABASE'"; fi
+	if [ -z ${E_VAL+x} ]; then echo "  E_VAL is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  E_VAL='$E_VAL'"; fi
+	if [ -z ${DIAMOND_THREADS+x} ]; then echo "  DIAMOND_THREADS is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  DIAMOND_THREADS='$DIAMOND_THREADS'"; fi
+	if [ -z ${DIAMOND_RAM+x} ]; then echo "  DIAMOND_RAM is unset"; echo "  please ensure all variables are specified in your config file"; exit 1; else echo "  DIAMOND_RAM='$DIAMOND_RAM'"; fi
+	cd ${ANNOTATION_DIR_CLUSTER}
+	echo "submitting DIAMOND job"
+	sbatch --job-name="${SPECIES}_DIAMOND" --ntasks-per-node=${DIAMOND_THREADS} --mem=${DIAMOND_RAM} --output="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}_DIAMOND.out" --error="${ANNOTATION_DIR_CLUSTER}/logFiles/${SPECIES}_B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}_DIAMOND.err" ./scripts/run_DIAMOND.sh ${SPECIES} ${ANNOTATION_DIR_CLUSTER} ${BRAKER_WEIGHT_DIAMOND} ${GEMOMA_WEIGHT_DIAMOND} ${GEMOMA_SCORE_AA_FILTER} ${DATABASE} ${E_VAL} ${DIAMOND_THREADS} 
 fi
