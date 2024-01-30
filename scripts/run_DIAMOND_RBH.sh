@@ -11,7 +11,6 @@
 #Script to perform a reciprocal DIAMOND search
 #modified from https://morphoscape.wordpress.com/2020/08/18/reciprocal-best-hits-DIAMOND-rbhb/
 
-#if running on the cluster, uncomment the line below to load the DIAMOND conda environment
 module load miniconda3/22.11.1-1
 source activate DIAMOND
 
