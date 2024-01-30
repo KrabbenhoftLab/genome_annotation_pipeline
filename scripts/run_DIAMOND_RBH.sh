@@ -21,21 +21,23 @@ BRAKER_WEIGHT_DIAMOND=$3 # EVM weight for BRAKER predictions
 GEMOMA_WEIGHT_DIAMOND=$4 # EVM weight for GeMoMa predictions
 GEMOMA_SCORE_AA_FILTER=$5
 DATABASE=$6 # path to protein FASTA file to use a search database, must be located within ANNOTATION_DIR_CLUSTER
-E_VAL=$7 # 
-DIAMOND_THREADS=$8
+DATABASE_NAME=$7
+E_VAL=$8 # 
+DIAMOND_THREADS=$9
 
 # set up directories
 mkdir -p ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH
-mkdir -p ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}
+mkdir -p ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/DB-${DATABASE_NAME}
+mkdir -p ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/DB-${DATABASE_NAME}/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}
 
-cd ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}
+cd ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/DB-${DATABASE_NAME}/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}
  
 #full path to query file, should be protein FASTA
 inputQuery="${ANNOTATION_DIR_CLUSTER}/${SPECIES}_EVM/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}/${SPECIES}.EVM.pep"
 #full path to DB reciprocal file, should be protein FASTA
 inputDB="${ANNOTATION_DIR_CLUSTER}/${DATABASE}"
 #full path to output results
-outputPath="${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}"
+outputPath="${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/DB-${DATABASE_NAME}/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}"
 #DIAMOND threads
 threads=${DIAMOND_THREADS}
 #DIAMOND E value, see https://blast.ncbi.nlm.nih.gov/doc/blast-help/FAQ.html
@@ -46,14 +48,11 @@ e_val=${E_VAL}
 #Move to query directory
 queryPath=$(dirname "$inputQuery")
 cd "${queryPath}"
-#Make DIAMOND protein DB of the input query
-diamond makedb --in "${inputQuery}" --db "${inputQuery}"
-
-#Move to DB directory
-dbPath=$(dirname "$inputDB")
-cd "${dbPath}"
-#Make DIAMOND protein DB of the input DB
-diamond makedb --in "${inputDB}" --db "${inputDB}"
+if [ ! -f ${inputQuery}.dmnd ]; then
+	echo "making database for ${inputQuery}"
+	#Make DIAMOND protein DB of the input query
+	diamond makedb --in "${inputQuery}" --db "${inputQuery}"
+fi
 
 #Output start status message
 echo "Beginning reciprocal DIAMOND..."
@@ -62,7 +61,7 @@ echo "Beginning reciprocal DIAMOND..."
 cd "${outputPath}"
 
 #Use DIAMONDp to search a database
-diamond blastp --ultra-sensitive --query "${inputQuery}" --db "${inputDB}" --outfmt 6 --max-target-seqs 1 --evalue ${e_val} --threads ${threads} > DIAMOND.outfmt6
+diamond blastp --ultra-sensitive --query "${inputQuery}" --db "${inputDB}" --outfmt 6 --max-target-seqs 1 --evalue "${e_val}" --threads "${threads}" > DIAMOND.outfmt6
 
 #Switch query and search paths for reciprocal search
 diamond blastp --ultra-sensitive --query "${inputDB}" --db "${inputQuery}" --outfmt 6 --max-target-seqs 1 --evalue "${e_val}" --threads "${threads}" > DIAMOND_reciprocal.outfmt6
