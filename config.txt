@@ -122,7 +122,7 @@ EGGNOG_OPTIONS="" # additional eggNOG options, see https://github.com/eggnogdb/e
 BRAKER_WEIGHT_DIAMOND=1 # EVM weight for BRAKER predictions
 GEMOMA_WEIGHT_DIAMOND=3 # EVM weight for GeMoMa predictions
 DATABASE="" # path to protein FASTA file to use a search database, must be located within ANNOTATION_DIR_CLUSTER
-E_VAL="1e-3" # 
+E_VAL="1e-3" # maximum expected value to report an alignment, see https://www.metagenomics.wiki/tools/blast/evalue
 DIAMOND_THREADS=20 
 DIAMOND_RAM="200G"
 

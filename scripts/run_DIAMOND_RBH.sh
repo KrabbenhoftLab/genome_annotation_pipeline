@@ -13,8 +13,7 @@
 
 #if running on the cluster, uncomment the line below to load the DIAMOND conda environment
 module load miniconda3/22.11.1-1
-
-module use /projects/academic/tkrabben/modules_KrabLab/;module load DIAMOND
+source activate DIAMOND
 
 ### INPUTS ###
 ANNOTATION_DIR_CLUSTER=$1
