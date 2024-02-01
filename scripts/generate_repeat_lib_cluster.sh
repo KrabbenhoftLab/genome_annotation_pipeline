@@ -64,3 +64,15 @@ fi
 
 # run RepeatClassifier if it fails, you will need to modify the line below
 #RepeatClassifier -consensi ./RM_18866.FriApr101507532020/families.fa -stockholm ./RM_18866.FriApr101507532020/families.stk
+
+echo ""
+echo "Step 1 COMPLETE"
+echo "please check to make sure that your custom repeat family FASTA file was created:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fa"
+echo ""
+echo "if the repeat families file does not exist, try resuming Step 1 from a checkpoint"
+echo "you will need to set CONTINUE_RMODEL=\"yes\""
+echo "and specify the CONTINUE_RMODEL_DIR option"
+echo "in your config file"
+echo ""
+echo "you may proceed to Step 2: repeat masking"

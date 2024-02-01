@@ -107,3 +107,12 @@ echo "${queryHits}","${dbHits}","${bestHits}" >> "${summaryFile}"
 
 #Output end status message
 echo "Finished recording RBH!"
+
+echo ""
+echo "Step 10 COMPLETE"
+echo "There should be several files located in:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_DIAMOND_RBH/DB-${DATABASE_NAME}/B${BRAKER_WEIGHT_DIAMOND}_G${GEMOMA_WEIGHT_DIAMOND}-SCORE-${GEMOMA_SCORE_AA_FILTER}"
+echo "DIAMOND.outfmt6 contains a BLAST format 6 table of hits using your annotation as the query"
+echo "DIAMOND_reciprocal.outfmt6 contains a BLAST format 6 table of hits using your annotation as the database"
+echo "DIAMOND_RBH.txt contains a list of reciprocal best hits between your annotation and the reference database"
+echo "DIAMOND_RBH_summary.txt reports how many hits exist in each of the three above files, respectively"
