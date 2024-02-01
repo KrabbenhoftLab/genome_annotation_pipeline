@@ -45,7 +45,7 @@ Help()
    echo "         database like UniProt-SwissProt"
    echo ""
    echo "Options:"
-   echo "s   Which step would you like to run? Enter number 1 through 7"
+   echo "s   Which step would you like to run? Enter number 1 through 10"
    echo "c   Config text file"
    echo "v   Check version of the main script and all subscripts"
    echo "h   Print this Help"
