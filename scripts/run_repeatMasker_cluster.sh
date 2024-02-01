@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.0
+# v0.4.1
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -104,3 +104,15 @@ if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	  perl -ane '$id; if(!/^\#/){@F = split(/\t/, $_); chomp $F[-1];$id++; $F[-1] .= "\;ID=$id"; $_ = join("\t", @F)."\n"} print $_' \
 	  > ${SPECIES}.final_repeat_mask.complex.reformat.gff3
 fi
+
+echo ""
+echo "Step 2 COMPLETE"
+echo "please check to make sure that your final repeat GFF was generated"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/final_repeat_mask/${SPECIES}.final_repeat_mask.gff3"
+echo "you can inspect the repeat table to see a summary of the repeat masking:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/final_repeat_mask/${SPECIES}.final_repeat_mask.tbl"
+echo ""
+echo "if the repeat GFF does not exist, you can rerun Step 2"
+echo "the script will attempt to resume the repeat masking run"
+echo ""
+echo "you may now proceed to Step 3: soft masking your genome FASTA"

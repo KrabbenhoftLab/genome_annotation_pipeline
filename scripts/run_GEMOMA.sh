@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.0
+# v0.4.1
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -149,3 +149,11 @@ else
 	mv ${outDir_combined}/final_annotation.longest_isoform.gff ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff
 	mv ${outDir_combined}/proteins.all.fasta  ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/proteins.all.fasta
 fi
+
+
+echo ""
+echo "Step 7 COMPLETE"
+echo "please check to make sure that a combined GFF was produced by GeMoMa:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_GeMoMa/GeMoMa_combined/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff"
+echo ""
+echo "if Step 6 (BRAKER) has also finished, you may proceed to Step 8: combining gene predictions with EVM"

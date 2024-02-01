@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.0
+# v0.4.1
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -67,3 +67,14 @@ rm ${SPECIES}.EVM.summaryStats.txt
 module load miniconda3/22.11.1-1;source activate r_env
 Rscript --vanilla ${ANNOTATION_DIR}/scripts/annotation_summary_stats.R ${SPECIES}.EVM.mod.gff3 introns.txt ${SPECIES}.EVM.genestats.txt ${SPECIES}.EVM.pep.lens.txt ${SPECIES}
 
+echo ""
+echo "Step 8 COMPLETE"
+echo "please check to make sure that a combined GFF was produced by EVM:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_EVM/B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}/${SPECIES}.EVM.mod.gff3"
+echo "summary stats may be found in:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_EVM/B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}/${SPECIES}.EVM.summaryStats.txt"
+echo "histograms of gene lengths available here:"
+echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_EVM/B${BRAKER_WEIGHT}_G${GEMOMA_WEIGHT}-SCORE-${GEMOMA_SCORE_AA_FILTER}/${SPECIES}.EVM.summaryStats.pdf"
+echo ""
+echo "you may proceed to Steps 9 and 10: functional annotation with EggNOG-mapper and identifying reciprocal best hits with DIAMOND"
+echo "Steps 9 and 10 may be run simultaneously"
