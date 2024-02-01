@@ -1,11 +1,12 @@
-#!/bin/bash
-# v0.3.7
+#!/bin/bash -l
+# v0.4.0
+
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
-#SBATCH --constraint=AVX512
+##SBATCH --constraint=AVX512
 #SBATCH --export=NONE
 
 # Pipeline to perform gene prediction and annotation

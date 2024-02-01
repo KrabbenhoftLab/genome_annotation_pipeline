@@ -1,5 +1,6 @@
 #!/bin/bash
-# v0.3.7
+# v0.4.0
+
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
 
@@ -10,14 +11,19 @@ SPECIES=$1 # short name for your species
 GENOME_DIR=$2 # directory containing your genome assembly
 GENOME_FILE=$3 # your genome assembly
 REPEAT_LIBRARY_NAME=$4 # name for your repeat library
-RM_THREADS=$5 # number of threads to parallelize RepeatMasker
+RMASK_THREADS=$5 # number of threads to parallelize RepeatMasker
 RM_SPECIES=$6 # species or clade to use for repeat masking
               # to find a species or clade of interest, run the following three commands
 			  # 'source activate maker-3.01.03'
 			  # 'cd /home/krablab/Documents/apps/RepeatMasker/Libraries"
 			  # 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 			  # this should return a list of potential matches for you to choose from
-BLAST_CPUS=$7 # for use with steps 1B and 12
+
+BLAST_CPUS=${RMASK_THREADS}
+
+## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
+## RMBlast jobs will use 4 cores each thread
+RM_THREADS= $(( RMASK_THREADS / 4 )) 
 
 # create directory for RepeatMasker
 mkdir ${SPECIES}_RepeatMasker
