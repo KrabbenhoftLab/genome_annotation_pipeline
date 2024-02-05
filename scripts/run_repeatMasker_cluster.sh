@@ -76,13 +76,30 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.tbl ]; then
 	# Run RepeatMasker to get GFF
 	# use coding gene filtered denovo predicted repeats
 	mkdir RMask_denovoPrediction_protFiltered
-	RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
+	
+	
+	module load nextflow/21.10.6
+	
+	nextflow run /projects/academic/tkrabben/software/RepeatMasker_Nextflow/RepeatMasker_Nextflow.nf \
+		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} \
+		--inputLibrary ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal \
+		--cluster UB
+		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPrediction_protFiltered
+	
+	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
 fi
 
 if ! [ -f ./RMask_denovoPlusDfam/*.tbl ]; then
 	# run RepeatMasker again using a clade or species from the Dfam database
 	mkdir RMask_denovoPlusDfam
-	RepeatMasker -pa ${RM_THREADS} -gff -species ${RM_SPECIES} -dir ./RMask_denovoPlusDfam ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.masked
+	
+	nextflow run /projects/academic/tkrabben/software/RepeatMasker_Nextflow/RepeatMasker_Nextflow.nf \
+		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} \
+		--cluster UB
+		--species "${RM_SPECIES}"
+		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPlusDfam
+	
+	#RepeatMasker -pa ${RM_THREADS} -gff -species ${RM_SPECIES} -dir ./RMask_denovoPlusDfam ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.masked
 fi
 
 if ! [ -f ./final_repeat_mask/*.tbl ]; then
