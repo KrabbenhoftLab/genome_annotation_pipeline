@@ -72,7 +72,7 @@ if ! [ -f ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NA
 	/projects/academic/tkrabben/software/ProtExcluder/ProtExcluder.pl ${SPECIES}_blastx_uniprot_TEfiltered_e10.out ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fa
 fi
 
-if ! [ -f ./RMask_denovoPrediction_protFiltered/*.tbl ]; then
+if ! [ -f ./RMask_denovoPrediction_protFiltered/*.rmalign.gz ]; then
 	# Run RepeatMasker to get GFF
 	# use coding gene filtered denovo predicted repeats
 	mkdir RMask_denovoPrediction_protFiltered
@@ -88,7 +88,7 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.tbl ]; then
 	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
 fi
 
-if ! [ -f ./RMask_denovoPlusDfam/*.tbl ]; then
+if ! [ -f ./RMask_denovoPlusDfam/*.rmalign.gz ]; then
 	# run RepeatMasker again using a clade or species from the Dfam database
 	mkdir RMask_denovoPlusDfam
 	
@@ -106,12 +106,13 @@ fi
 if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	# Combine two rounds of RepeatMasker
 	mkdir final_repeat_mask
-	gunzip ./RMask_denovoPrediction_protFiltered/*.cat.gz ./RMask_denovoPlusDfam/*.cat.gz
-	cat  ./RMask_denovoPrediction_protFiltered/*.cat  ./RMask_denovoPlusDfam/*.cat > final_repeat_mask/${SPECIES}.final_repeat_mask.cat
-	gzip ./RMask_denovoPrediction_protFiltered/*.cat
-	gzip ./RMask_denovoPlusDfam/*.cat
+	gunzip ./RMask_denovoPrediction_protFiltered/*.rmalign.gz ./RMask_denovoPlusDfam/*.rmalign.gz
+	cat  ./RMask_denovoPrediction_protFiltered/*.rmalign  ./RMask_denovoPlusDfam/*.rmalign > final_repeat_mask/${SPECIES}.final_repeat_mask.rmalign
+	gzip ./RMask_denovoPrediction_protFiltered/*.rmalign
+	gzip ./RMask_denovoPlusDfam/*.rmalign
 	cd final_repeat_mask
-	ProcessRepeats -species ${RM_SPECIES} ${SPECIES}.final_repeat_mask.cat
+	ProcessRepeats -species ${RM_SPECIES} ${SPECIES}.final_repeat_mask.rmalign
+	gzip ${SPECIES}.final_repeat_mask.rmalign
 
 	# create GFF
 	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/rmOutToGFF3.pl ${SPECIES}.final_repeat_mask.out > ${SPECIES}.final_repeat_mask.gff3
