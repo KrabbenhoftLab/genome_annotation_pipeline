@@ -113,7 +113,13 @@ if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	cd final_repeat_mask
 	ProcessRepeats -species ${RM_SPECIES} ${SPECIES}.final_repeat_mask.rmalign
 	gzip ${SPECIES}.final_repeat_mask.rmalign
+	
+	# get lengths of sequences in genome fasta
+	cat ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} | awk '$0 ~ ">" {if (NR > 1) {print c;} c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}.lens.tsv
 
+	# generate detailed summary table
+	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/buildSummary.pl -useAbsoluteGenomeSize -genome ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}.lens.tsv ${SPECIES}.final_repeat_mask.out > ${SPECIES}.final_repeat_mask.summary 
+	
 	# create GFF
 	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/rmOutToGFF3.pl ${SPECIES}.final_repeat_mask.out > ${SPECIES}.final_repeat_mask.gff3
 	# isolate complex repeats
