@@ -83,7 +83,8 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.rmalign.gz ]; then
 		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} \
 		--inputLibrary ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal \
 		--cluster UB \
-		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPrediction_protFiltered;
+		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPrediction_protFiltered \
+		-resume;
 	
 	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
 fi
@@ -98,7 +99,8 @@ if ! [ -f ./RMask_denovoPlusDfam/*.rmalign.gz ]; then
 		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} \
 		--cluster UB \
 		--species "${RM_SPECIES}" \
-		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPlusDfam;
+		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPlusDfam \
+		-resume;
 	
 	#RepeatMasker -pa ${RM_THREADS} -gff -species ${RM_SPECIES} -dir ./RMask_denovoPlusDfam ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.masked
 fi
