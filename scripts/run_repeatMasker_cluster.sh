@@ -95,8 +95,9 @@ if ! [ -f ./RMask_denovoPlusDfam/*.rmalign.gz ]; then
 	
 	module load nextflow/21.10.6
 	
+	# mask using Dfam, use masked FASTA generated using custom repeat library
 	nextflow run /projects/academic/tkrabben/software/RepeatMasker_Nextflow/RepeatMasker_Nextflow.nf \
-		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} \
+		--inputSequence ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPrediction_protFiltered/${GENOME_FILE}.masked \ 
 		--cluster UB \
 		--species "${RM_SPECIES}" \
 		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPlusDfam \
