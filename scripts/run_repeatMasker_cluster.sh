@@ -119,7 +119,7 @@ if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout ./RMask_denovoPlusDfam/${GENOME_FILE}.out
 	
 	# combine results of the two runs
-	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/combineRMFiles.pl ./RMask_denovoPlusDfam/${GENOME_FILE} ./RMask_denovoPlusDfam/${GENOME_FILE} ./final_repeat_mask/${SPECIES}.final_repeat_mask
+	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/combineRMFiles.pl ./RMask_denovoPlusDfam/${GENOME_FILE} ./RMask_denovoPrediction_protFiltered/${GENOME_FILE} ./final_repeat_mask/${SPECIES}.final_repeat_mask
 	
 	#cat  ./RMask_denovoPrediction_protFiltered/*.rmalign  ./RMask_denovoPlusDfam/*.rmalign > final_repeat_mask/${SPECIES}.final_repeat_mask.rmalign
 	# compress and clean up
