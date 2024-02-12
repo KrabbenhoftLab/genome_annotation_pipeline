@@ -28,7 +28,7 @@ RM_SPECIES=$7 # species or clade to use for repeat masking
 			  # 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 			  # this should return a list of potential matches for you to choose from
 
-GENOME_FILE_PREFIX=${GENOME_FILE%"fasta"}
+GENOME_FILE_PREFIX=${GENOME_FILE%"\.fasta"}
 
 
 BLAST_CPUS=${RMASK_THREADS}
@@ -95,7 +95,9 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.masked ]; then
 	cp ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} .
 	mv ${GENOME_FILE} ${GENOME_FILE}.masked
 	gunzip ${GENOME_FILE_PREFIX}.rmout.gz
+	echo "masking genome assembly ${GENOME_FILE_PREFIX}.fasta"
 	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/maskFile.pl -fasta ${GENOME_FILE} ${GENOME_FILE}.masked -annotations ${GENOME_FILE_PREFIX}.rmout
+	echo "done masking genome"
 	gzip ${GENOME_FILE_PREFIX}.rmout.gz
 	cd ..
 	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
