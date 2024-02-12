@@ -109,13 +109,33 @@ fi
 if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	# Combine two rounds of RepeatMasker
 	mkdir final_repeat_mask
-	gunzip ./RMask_denovoPrediction_protFiltered/*.rmalign.gz ./RMask_denovoPlusDfam/*.rmalign.gz
-	cat  ./RMask_denovoPrediction_protFiltered/*.rmalign  ./RMask_denovoPlusDfam/*.rmalign > final_repeat_mask/${SPECIES}.final_repeat_mask.rmalign
-	gzip ./RMask_denovoPrediction_protFiltered/*.rmalign
-	gzip ./RMask_denovoPlusDfam/*.rmalign
-	cd final_repeat_mask
-	ProcessRepeats -species ${RM_SPECIES} ${SPECIES}.final_repeat_mask.rmalign
-	gzip ${SPECIES}.final_repeat_mask.rmalign
+	
+	# prepare files
+	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.align 
+	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign ./RMask_denovoPlusDfam/${GENOME_FILE}.align 
+	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.out
+	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout ./RMask_denovoPlusDfam/${GENOME_FILE}.out
+	
+	# combine results of the two runs
+	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/combineRMFiles.pl ./RMask_denovoPlusDfam/${GENOME_FILE} ./RMask_denovoPlusDfam/${GENOME_FILE} ./final_repeat_mask/${SPECIES}.final_repeat_mask
+	
+	#cat  ./RMask_denovoPrediction_protFiltered/*.rmalign  ./RMask_denovoPlusDfam/*.rmalign > final_repeat_mask/${SPECIES}.final_repeat_mask.rmalign
+	# compress and clean up
+	gzip ./RMask_denovoPrediction_protFiltered/*.align
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.align.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign.gz
+	gzip ./RMask_denovoPlusDfam/*.align
+	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.align.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign.gz
+	gzip ./RMask_denovoPrediction_protFiltered/*.out
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.out.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout.gz
+	gzip ./RMask_denovoPlusDfam/*.out
+	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.out.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout.gz
+	
+	# generate repeat GFF and summary table
+	#cd final_repeat_mask
+	#ProcessRepeats -species ${RM_SPECIES} ${SPECIES}.final_repeat_mask.align
+	gzip ${SPECIES}.final_repeat_mask.align
 	
 	# get lengths of sequences in genome fasta
 	cat ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} | awk '$0 ~ ">" {if (NR > 1) {print c;} c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}.lens.tsv
