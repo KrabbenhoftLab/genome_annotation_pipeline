@@ -28,6 +28,8 @@ RM_SPECIES=$7 # species or clade to use for repeat masking
 			  # 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 			  # this should return a list of potential matches for you to choose from
 
+GENOME_FILE_PREFIX=${GENOME_FILE%"fasta"}
+
 
 BLAST_CPUS=${RMASK_THREADS}
 
@@ -85,7 +87,17 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.rmalign.gz ]; then
 		--cluster UB \
 		--outputDir ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatMasker/RMask_denovoPrediction_protFiltered \
 		-resume;
-	
+fi
+
+if ! [ -f ./RMask_denovoPrediction_protFiltered/*.masked ]; then
+	# generate masked fasta
+	cd RMask_denovoPrediction_protFiltered
+	cp ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} .
+	mv ${GENOME_FILE} ${GENOME_FILE}.masked
+	gunzip ${GENOME_FILE_PREFIX}.rmout.gz
+	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/maskFile.pl -fasta ${GENOME_FILE} ${GENOME_FILE}.masked -annotations ${GENOME_FILE_PREFIX}.rmout
+	gzip ${GENOME_FILE_PREFIX}.rmout.gz
+	cd ..
 	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
 fi
 
@@ -111,11 +123,11 @@ if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	mkdir final_repeat_mask
 	
 	# prepare files
-	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign.gz
-	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.align 
+	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmalign.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmalign ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.align 
 	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign ./RMask_denovoPlusDfam/${GENOME_FILE}.align 
-	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout.gz
-	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.out
+	gunzip ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmout.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmout ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.out
 	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout ./RMask_denovoPlusDfam/${GENOME_FILE}.out
 	
 	# combine results of the two runs
@@ -124,11 +136,11 @@ if ! [ -f ./final_repeat_mask/*.tbl ]; then
 	#cat  ./RMask_denovoPrediction_protFiltered/*.rmalign  ./RMask_denovoPlusDfam/*.rmalign > final_repeat_mask/${SPECIES}.final_repeat_mask.rmalign
 	# compress and clean up
 	gzip ./RMask_denovoPrediction_protFiltered/*.align
-	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.align.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmalign.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.align.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmalign.gz
 	gzip ./RMask_denovoPlusDfam/*.align
 	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.align.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmalign.gz
 	gzip ./RMask_denovoPrediction_protFiltered/*.out
-	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.out.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE}.rmout.gz
+	mv ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.out.gz ./RMask_denovoPrediction_protFiltered/${GENOME_FILE_PREFIX}.rmout.gz
 	gzip ./RMask_denovoPlusDfam/*.out
 	mv ./RMask_denovoPlusDfam/${GENOME_FILE}.out.gz ./RMask_denovoPlusDfam/${GENOME_FILE}.rmout.gz
 	
