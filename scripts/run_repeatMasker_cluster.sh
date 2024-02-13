@@ -93,12 +93,11 @@ if ! [ -f ./RMask_denovoPrediction_protFiltered/*.masked ]; then
 	# generate masked fasta
 	cd RMask_denovoPrediction_protFiltered
 	cp ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE} .
-	mv ${GENOME_FILE} ${GENOME_FILE}.masked
 	gunzip ${GENOME_FILE_PREFIX}.rmout.gz
 	echo "masking genome assembly ${GENOME_FILE_PREFIX}.fasta"
-	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/maskFile.pl -fasta ${GENOME_FILE}.masked -annotations ${GENOME_FILE_PREFIX}.rmout
+	/projects/academic/tkrabben/modules_KrabLab/easybuild/2023.01/software/avx512/MPI/gcc/11.2.0/openmpi/4.1.1/repeatmasker/4.1.5/util/maskFile.pl -fasta ${GENOME_FILE} -annotations ${GENOME_FILE_PREFIX}.rmout
 	echo "done masking genome"
-	gzip ${GENOME_FILE_PREFIX}.rmout.gz
+	gzip ${GENOME_FILE_PREFIX}.rmout
 	cd ..
 	#RepeatMasker -pa ${RM_THREADS} -gff -lib ${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fanoProtFinal -dir ./RMask_denovoPrediction_protFiltered ${ANNOTATION_DIR_CLUSTER}/${GENOME_DIR}/${GENOME_FILE}
 fi
