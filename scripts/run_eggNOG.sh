@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.1
+# v0.4.2
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -27,5 +27,9 @@ echo ""
 echo "Step 9 COMPLETE"
 echo "EggNOG-mapper should have produced several files here:"
 echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_eggNOG/B${BRAKER_WEIGHT_EGG}_G${GEMOMA_WEIGHT_EGG}-SCORE-${GEMOMA_SCORE_AA_FILTER}"
-echo "you can manually examine the functiona annotations using ${SPECIES}.EVM.B${BRAKER_WEIGHT_EGG}.G${GEMOMA_WEIGHT_EGG}.emapper.annotations.xlsx"
-echo "there should also be an annotated GFF file, ${SPECIES}.EVM.B${BRAKER_WEIGHT_EGG}.G${GEMOMA_WEIGHT_EGG}.emapper.decorated.gff" 
+echo ""
+echo "You can manually examine the functional annotations in Excel:"
+echo "${SPECIES}.EVM.B${BRAKER_WEIGHT_EGG}.G${GEMOMA_WEIGHT_EGG}.emapper.annotations.xlsx"
+echo ""
+echo "There should also be an annotated GFF file:"
+echo "${SPECIES}.EVM.B${BRAKER_WEIGHT_EGG}.G${GEMOMA_WEIGHT_EGG}.emapper.decorated.gff" 

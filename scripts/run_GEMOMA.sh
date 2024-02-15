@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.1
+# v0.4.2
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -153,7 +153,7 @@ fi
 
 echo ""
 echo "Step 7 COMPLETE"
-echo "please check to make sure that a combined GFF was produced by GeMoMa:"
+echo "Please check to make sure that a combined GFF was produced by GeMoMa:"
 echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_GeMoMa/GeMoMa_combined/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff"
 echo ""
-echo "if Step 6 (BRAKER) has also finished, you may proceed to Step 8: combining gene predictions with EVM"
+echo "If Step 6 (BRAKER) has also finished, you may proceed to Step 8: combining gene predictions with EVM."

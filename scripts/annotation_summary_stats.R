@@ -9,12 +9,12 @@ genestats = args[3]
 peps = args[4]
 species = args[5]
 
-#setwd("H:/KrabbLab/Genome_annotations/Gyro/BRAKER_RNA_OrthoDB-cypPeps_v1/Gyro_EVM_B1_G3")
-#gff = "Gyro.EVM.mod.gff3"
-#introns = "introns.txt"
-#genestats = "Gyro.EVM.genestats.txt"
-#peps = "Gyro.EVM.pep.lens.txt"
-#species="Gyro"
+#setwd("H:/KrabbLab/Genome_annotations/Mmel/test")
+#gff = "Caur.longest_isoform.simple.gff"
+#introns = "introns.simple.txt"
+#genestats = "Caur.genestats.txt"
+#peps = "Caur.longest_isoform.protein.lens.txt"
+#species="Caur"
 
 data <- read.table(gff)
 data$V10 <- data$V5 - data$V4
@@ -45,9 +45,9 @@ median_introns <- median(gs_data$introns)
 stddev_introns <- sd(gs_data$introns)
 
 pep_data <- read.table(peps)
-mean_pep_len <- mean(pep_data$V7)
-median_pep_len <- median(pep_data$V7)
-stddev_pep_len <- sd(pep_data$V7)
+mean_pep_len <- mean(pep_data[,ncol(pep_data)])
+median_pep_len <- median(pep_data[,ncol(pep_data)])
+stddev_pep_len <- sd(pep_data[,ncol(pep_data)])
 
 zz <- file(paste0(species, ".EVM.summaryStats.txt"), open = "wt")
 sink(zz, type = "message")
@@ -90,7 +90,7 @@ gene_len_p <- ggplot(data=gs_data, aes(x=transcript_length/1000)) +
 gene_len_p_crop <- gene_len_p + xlim(c(0,20))
 
 
-pep_len_p <- ggplot(data=pep_data, aes(x=V7)) +
+pep_len_p <- ggplot(data=pep_data, aes(x=pep_data[,ncol(pep_data)])) +
   xlab("protein length (aa)") +
   ylab("proteins") +
   geom_histogram(position="identity", color="white",

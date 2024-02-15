@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.1
+# v0.4.2
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -67,12 +67,31 @@ fi
 
 echo ""
 echo "Step 1 COMPLETE"
-echo "please check to make sure that your custom repeat family FASTA file was created:"
+echo "Please check to make sure that your custom repeat family FASTA file was created:"
 echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_RepeatModeler/${REPEAT_LIBRARY_NAME}-families.fa"
 echo ""
-echo "if the repeat families file does not exist, try resuming Step 1 from a checkpoint"
-echo "you will need to set CONTINUE_RMODEL=\"yes\""
-echo "and specify the CONTINUE_RMODEL_DIR option"
-echo "in your config file"
+echo "If this file exists, you may proceed to Step 2: repeat masking"
 echo ""
-echo "you may proceed to Step 2: repeat masking"
+echo "If the repeat families file does not exist, try resuming Step 1 from a checkpoint."
+echo "You will need to set CONTINUE_RMODEL=\"yes\""
+echo "and specify the CONTINUE_RMODEL_DIR option"
+echo "in your config file."
+echo ""
+echo "Occasionally, all 5 rounds of RepeatModeler will finish, but the LTR Structural Analysis"
+echo "will not. Usually this is due to hitting a walltime limit, producing an error message like:"
+echo 'slurmstepd: error: *** JOB 14904061 ON cpn-i16-24 CANCELLED AT 2024-02-11T11:09:23 ***'
+echo ""
+echo "If this happens, you will not see a ${REPEAT_LIBRARY_NAME}-families.fa file in your"
+echo "RepeatModeler directory. Sadly, RepeatModeler is not smart enough to recognize this as"
+echo "a failed run. If you restart Step 1, you will get a message like:"
+echo "\"This directory appears to contain a successful run of RepeatModeler\""
+echo ""
+echo "In this case, in order to resume your failed RepeatModeler run, take the following steps:"
+echo " - navigate to ${SPECIES}_RepeatModeler/RM_SOMENUMBER.DATE/round-5"
+echo " - delete the file \"consensi.fa\""
+echo " - rerun Step 1 of this pipeline"
+echo ""
+echo "Unfortunately, this workaround requires RepeatModeler to restart round 5 from scratch."
+echo "After round 5 is complete, it will then run the LTR Structural Analysis, and eventually"
+echo "produce a ${REPEAT_LIBRARY_NAME}-families.fa file."
+echo ""

@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.1
+# v0.4.2
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
@@ -73,9 +73,9 @@ echo "step complete"
 
 echo ""
 echo "Step 4 COMPLETE"
-echo "please check to make sure that your merged BAM file exists:"
+echo "Please check to make sure that your merged BAM file exists:"
 echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam"
 echo ""
-echo "you may proceed to Step 5: downloading reference protein datasets from NCBI"
-echo "if you have already downloaded reference protein datasets, proceed to Steps 6 and 7: BRAKER and GeMoMa"
+echo "You may proceed to Step 5: downloading reference protein datasets from NCBI."
+echo "If you have already downloaded reference protein datasets, proceed to Steps 6 and 7: BRAKER and GeMoMa."
 echo "Steps 6 and 7 may be run simultaneously"

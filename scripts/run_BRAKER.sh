@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.1
+# v0.4.2
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -77,7 +77,7 @@ singularity run -H ${PWD} ${AGAT_SIF} agat_sp_extract_sequences.pl -g ${SPECIES}
 
 echo ""
 echo "Step 6 COMPLETE"
-echo "please check to make sure that a combined GFF was produced by BRAKER:"
+echo "Please check to make sure that a combined GFF was produced by BRAKER:"
 echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_BRAKER/braker.longest_isoform.gff3"
 echo ""
-echo "if Step 7 (GeMoMa) has also finished, you may proceed to Step 8: combining gene predictions with EVM"
+echo "If Step 7 (GeMoMa) has also finished, you may proceed to Step 8: combining gene predictions with EVM."
