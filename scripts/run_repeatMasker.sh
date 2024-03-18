@@ -23,7 +23,7 @@ BLAST_CPUS=${RMASK_THREADS}
 
 ## RMASK_THREADS specifies the number of parallel search jobs to run for RepeatMasker.
 ## RMBlast jobs will use 4 cores each thread
-RM_THREADS= $(( RMASK_THREADS / 4 )) 
+RM_THREADS=$(( RMASK_THREADS / 4 )) 
 
 # create directory for RepeatMasker
 mkdir ${SPECIES}_RepeatMasker
