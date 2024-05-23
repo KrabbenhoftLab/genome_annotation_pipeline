@@ -18,7 +18,7 @@ ANNOTATION_DIR_BOTTLEROCKET="/home/krablab/Documents/MacGuigan_data/Lpel_genome/
 ANNOTATION_DIR_CLUSTER="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel" # top level directory for annotation on the cluster
 SPECIES="Lpel" # short name for your species
 GENOME_DIR="Lpel_assembly" # directory containing your genome assembly, needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
-GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be located inside of GENOME_DIR
+GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be located inside of GENOME_DIR, must end in ".fasta"
 
 ############### Repeat modeling/masking options ############
 USE_CLUSTER_RM="yes" # run repeat masking and modeling on the cluster (yes or no)?
@@ -43,7 +43,7 @@ RMASK_RAM="400G" # how much RAM for repeat masking
 ## 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 ## this should print a list of potential matches for you to choose from
 RM_SPECIES="vertebrata" 
-MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, will be produced with bedtools and gff from RepeatMasker step
+MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, must end in ".fasta", will be produced during the RepeatMasker step
 
 ############### HISAT2 options ##############################
 ## NOTE: HISAT2 is optional but recommended, requires Illumina RNA-seq data, preferably from the species you are annotating
