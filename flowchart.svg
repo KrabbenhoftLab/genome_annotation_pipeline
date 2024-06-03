@@ -9,6 +9,9 @@
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
    sodipodi:docname="flowchart.svg"
+   inkscape:export-filename="flowchart.png"
+   inkscape:export-xdpi="599.7"
+   inkscape:export-ydpi="599.7"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,15 +26,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.0520974"
-     inkscape:cx="341.22317"
-     inkscape:cy="392.07398"
+     inkscape:zoom="1.4878904"
+     inkscape:cx="459.71129"
+     inkscape:cy="568.92633"
      inkscape:window-width="2560"
      inkscape:window-height="1377"
      inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2" />
+     inkscape:current-layer="layer2"
+     inkscape:export-bgcolor="#ffffff00" />
   <defs
      id="defs1">
     <rect
@@ -392,7 +396,7 @@
      transform="translate(-5.44587,-4.9156716)">
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,17.574147,60.886538)"
+       transform="matrix(0.26458333,0,0,0.26458333,17.574147,61.338004)"
        id="text4-7-4-6"
        style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1);display:inline"
        x="5.796875"
@@ -403,7 +407,7 @@
 </tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,7.878681,8.1041551)"
+       transform="matrix(0.26458333,0,0,0.26458333,7.878681,9.0384734)"
        id="text4-7-4-6-1"
        style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1-2);display:inline"
        x="5.796875"
@@ -413,7 +417,7 @@
          id="tspan9">Dfam repeat database</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-0.21554906,-23.69109)"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.21554906,-23.143641)"
        id="text4-7-4-6-6"
        style="font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1-8);display:inline"
        x="5.796875"
@@ -461,7 +465,7 @@
        id="path5-7" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-8)"
-       d="m 108.67854,51.593753 v 7.336549"
+       d="m 108.67854,52.12292 v 7.336549"
        id="path5-7-18" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-29)"
@@ -473,15 +477,15 @@
        id="path5-7-5" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4)"
-       d="m 68.795975,96.858492 h 8.904531"
+       d="m 68.795975,97.309958 h 8.904531"
        id="path5-7-5-0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4-0)"
-       d="m 67.690266,44.050274 h 8.904531"
+       d="m 67.690266,44.984589 h 8.904531"
        id="path5-7-5-0-2" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4-0-1)"
-       d="m 58.755352,17.646164 h 8.904531"
+       d="m 58.755352,18.193613 h 8.904531"
        id="path5-7-5-0-2-9" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-2)"
@@ -538,7 +542,7 @@
          width="71.663269"
          height="12.625537"
          x="69.671883"
-         y="5.5125589" />
+         y="6.0600114" />
     </g>
     <g
        id="g8"
@@ -547,7 +551,7 @@
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,63.716408,2.0803767)"
          id="text4"
-         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4)"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4);display:inline"
          x="0"
          y="0"><tspan
            x="64.001953"
@@ -563,7 +567,7 @@
          width="54.236469"
          height="12.625537"
          x="78.385284"
-         y="33.42524" />
+         y="34.359558" />
     </g>
     <g
        id="g9"
@@ -589,7 +593,7 @@
          width="48.452389"
          height="12.625537"
          x="81.277321"
-         y="60.560417" />
+         y="60.605415" />
     </g>
     <g
        id="g10"
@@ -614,7 +618,7 @@
          width="51.973133"
          height="12.625537"
          x="79.516953"
-         y="86.004997" />
+         y="86.456467" />
     </g>
     <g
        id="g11"
@@ -668,7 +672,7 @@
          width="109.86124"
          height="8.4760876"
          x="50.115047"
-         y="112.08339" />
+         y="112.15706" />
     </g>
     <g
        id="g13"
@@ -761,9 +765,9 @@
       <rect
          style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect7-2-19"
-         width="64.372459"
+         width="67.390244"
          height="12.625537"
-         x="117.49725"
+         x="115.98837"
          y="159.78777" />
     </g>
     <path
