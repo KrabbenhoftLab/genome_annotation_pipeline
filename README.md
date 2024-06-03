@@ -12,7 +12,7 @@ Authors: Dan MacGuigan*, Nate Backenstose, Christopher Osborne
 *dmacguig@buffalo.edu
 
 ## Annotation pipeline flowchart
-![flowchart](/annotation_flowchart.png)
+![flowchart](/flowchart.png)
 
 ## Dependencies
 

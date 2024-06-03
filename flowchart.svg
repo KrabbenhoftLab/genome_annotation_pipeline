@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="flowchart.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0520974"
+     inkscape:cx="341.22317"
+     inkscape:cy="392.07398"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1">
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="240.36351"
+       height="78.52771"
+       id="rect4" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="201.39374"
+       height="41.458897"
+       id="rect4-5" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="201.39374"
+       height="41.458897"
+       id="rect4-5-1" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="242.73972"
+       height="59.042824"
+       id="rect4-5-1-7" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="550.55811"
+       height="22.077734"
+       id="rect4-5-1-7-8" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="242.73972"
+       height="59.042824"
+       id="rect4-5-1-7-8-2" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="410.09076"
+       height="39.552139"
+       id="rect4-5-1-7-8-2-1" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="242.73972"
+       height="59.042824"
+       id="rect4-5-1-7-8-2-1-0" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="242.73972"
+       height="59.042824"
+       id="rect4-5-1-7-8-2-1-0-9" />
+    <marker
+       style="overflow:visible"
+       id="Triangle-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-4-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-4-2-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4-4-7" />
+    </marker>
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="201.39374"
+       height="41.458897"
+       id="rect4-5-1-1" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="201.39374"
+       height="41.458897"
+       id="rect4-5-1-1-2" />
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="196.64133"
+       height="68.072403"
+       id="rect4-5-1-1-8" />
+    <marker
+       style="overflow:visible"
+       id="Triangle-4-8-66"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4-9-2" />
+    </marker>
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="242.73972"
+       height="59.042824"
+       id="rect4-5-1-7-80" />
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-2-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-8-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-2-4-0"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-8-0-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-2-4-0-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-8-0-6-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-8"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-29"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-20"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-14" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-20-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1-14-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-4-2-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4-4-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-4-2-2-0"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4-4-7-0" />
+    </marker>
+    <rect
+       x="37.63718"
+       y="125.6813"
+       width="410.09076"
+       height="39.552139"
+       id="rect4-5-1-7-8-2-1-3" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-5.44587,-4.9156716)">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,17.574147,60.886538)"
+       id="text4-7-4-6"
+       style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1);display:inline"
+       x="5.796875"
+       y="0"><tspan
+         x="88.087891"
+         y="140.09371"
+         id="tspan8">RNA-seq data
+</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,7.878681,8.1041551)"
+       id="text4-7-4-6-1"
+       style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1-2);display:inline"
+       x="5.796875"
+       y="0"><tspan
+         x="59.173828"
+         y="140.09371"
+         id="tspan9">Dfam repeat database</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.21554906,-23.69109)"
+       id="text4-7-4-6-6"
+       style="font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-1-8);display:inline"
+       x="5.796875"
+       y="0"><tspan
+         x="65.012695"
+         y="147.29975"
+         id="tspan10">Your genome </tspan><tspan
+         x="85.274414"
+         y="177.29975"
+         id="tspan11">assembly</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-17.298792,70.480091)"
+       id="text4-7-4-5-9"
+       style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-80);display:inline"
+       x="5.4570312"
+       y="0"><tspan
+         x="92.745117"
+         y="140.09371"
+         id="tspan12">OrthoDB database
+</tspan><tspan
+         x="92.323242"
+         y="160.09371"
+         id="tspan13">(for BRAKER only)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="68.640251"
+       y="147.94997"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="stroke-width:0.264583"
+         x="68.640251"
+         y="147.94997"></tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     transform="translate(-5.44587,-4.9156716)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2)"
+       d="m 108.67854,78.418023 v 7.336549"
+       id="path5-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-8)"
+       d="m 108.67854,51.593753 v 7.336549"
+       id="path5-7-18" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-29)"
+       d="m 108.67854,25.400003 v 7.336549"
+       id="path5-7-53" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2)"
+       d="m 43.59905,111.46572 5.791591,3.41482"
+       id="path5-7-5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4)"
+       d="m 68.795975,96.858492 h 8.904531"
+       id="path5-7-5-0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4-0)"
+       d="m 67.690266,44.050274 h 8.904531"
+       id="path5-7-5-0-2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-2-4-0-1)"
+       d="m 58.755352,17.646164 h 8.904531"
+       id="path5-7-5-0-2-9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-2)"
+       d="m 92.050298,153.78252 -5.736567,6.81047"
+       id="path5-6-3" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-8-66)"
+       d="m 160.1958,105.9393 -4.69277,7.17435"
+       id="path5-6-0-50" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-2-2)"
+       d="m 125.27506,153.78252 5.73656,6.81047"
+       id="path5-6-3-9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-2-1)"
+       d="m 132.91691,181.3316 -5.73656,6.81047"
+       id="path5-6-3-1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-4-2-2-0)"
+       d="m 84.408442,181.3316 5.73656,6.81047"
+       id="path5-6-3-9-5" />
+    <g
+       id="g7"
+       transform="translate(3.1750001,5.8208336)">
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+         x="105.39397"
+         y="10.847293"
+         id="text2"><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+           x="105.39397"
+           y="10.847293">(S1) Generate custom repeat library</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+           x="105.39397"
+           y="16.138954"
+           id="tspan7">RepeatModeler</tspan><tspan
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+           x="105.39397"
+           y="21.430616"
+           id="tspan3" /><tspan
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+           x="105.39397"
+           y="26.722279"
+           id="tspan4" /></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7"
+         width="71.663269"
+         height="12.625537"
+         x="69.671883"
+         y="5.5125589" />
+    </g>
+    <g
+       id="g8"
+       transform="translate(3.1750001,4.3122625)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,63.716408,2.0803767)"
+         id="text4"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4)"
+         x="0"
+         y="0"><tspan
+           x="64.001953"
+           y="140.09371"
+           id="tspan14">(S2) Generate repeat GFF
+</tspan><tspan
+           x="105.79492"
+           y="160.09371"
+           id="tspan15">RepeatMasker</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2"
+         width="54.236469"
+         height="12.625537"
+         x="78.385284"
+         y="33.42524" />
+    </g>
+    <g
+       id="g9"
+       transform="translate(3.1750001,3.5811946)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,68.862345,28.722077)"
+         id="text4-7"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5);display:inline"
+         x="0"
+         y="0"><tspan
+           x="54.298828"
+           y="140.09371"
+           id="tspan16">(S3) Soft mask genome
+</tspan><tspan
+           x="108.08789"
+           y="160.09371"
+           id="tspan17">bedtools
+</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-1"
+         width="48.452389"
+         height="12.625537"
+         x="81.277321"
+         y="60.560417" />
+    </g>
+    <g
+       id="g10"
+       transform="translate(3.1750001,4.5407231)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,68.856146,54.572096)"
+         id="text4-7-4"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1);display:inline"
+         x="5.796875"
+         y="0"><tspan
+           x="48.525391"
+           y="140.09371"
+           id="tspan18">(S4) Map RNA-seq reads
+</tspan><tspan
+           x="110.91992"
+           y="160.09371"
+           id="tspan19">HISAT2</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.999998;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-9"
+         width="51.973133"
+         height="12.625537"
+         x="79.516953"
+         y="86.004997" />
+    </g>
+    <g
+       id="g11"
+       transform="translate(3.1750001,4.7625002)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,130.64679,50.920335)"
+         id="text4-7-4-5"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7);display:inline"
+         x="5.4570312"
+         y="0"><tspan
+           x="70.073242"
+           y="140.09371"
+           id="tspan20">(S5) Download reference </tspan><tspan
+           x="86.077148"
+           y="160.09371"
+           id="tspan21">genomes/proteomes
+</tspan><tspan
+           x="91.428711"
+           y="180.09371"
+           id="tspan22">NCBI Datasets CLI</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-92"
+         width="51.391273"
+         height="17.604622"
+         x="147.14987"
+         y="82.733833" />
+    </g>
+    <g
+       id="g12"
+       transform="translate(3.1750001,4.8664398)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,22.728728,80.424179)"
+         id="text4-7-4-5-2"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-8);display:inline"
+         x="22.910156"
+         y="0"><tspan
+           x="112.83008"
+           y="140.09371"
+           id="tspan23">Gene prediction with (S6) BRAKER3 and (S7) GeMoMa 
+</tspan><tspan
+           x="37.636719"
+           y="160.09371"
+           id="tspan24">
+</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-7"
+         width="109.86124"
+         height="8.4760876"
+         x="50.115047"
+         y="112.08339" />
+    </g>
+    <g
+       id="g13"
+       transform="translate(3.1750001,5.5142734)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,41.247237,101.82382)"
+         id="text4-7-4-5-2-3-5"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-8-2-1);display:inline"
+         x="7.0585938"
+         y="0"><tspan
+           x="154.63965"
+           y="140.09371"
+           id="tspan25">(S8) Merge gene models
+</tspan><tspan
+           x="179.67871"
+           y="160.09371"
+           id="tspan26">EVidenceModeler
+</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-2"
+         width="50.563545"
+         height="12.625537"
+         x="80.221741"
+         y="133.69022" />
+    </g>
+    <g
+       id="g13-4"
+       transform="translate(2.217543,59.630115)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,42.113223,100.23631)"
+         id="text4-7-4-5-2-3-5-1"
+         style="font-size:24px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-8-2-1-3);display:inline"
+         x="7.0585938"
+         y="0"><tspan
+           x="125.27832"
+           y="147.29975"
+           id="tspan27">Final gene predictions
+</tspan></text>
+    </g>
+    <g
+       id="g14"
+       transform="translate(3.1750001,5.8208336)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,26.236162,127.67384)"
+         id="text4-7-4-5-2-3-5-9"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-8-2-1-0);display:inline"
+         x="10.132812"
+         y="0"><tspan
+           x="65.170898"
+           y="140.09371"
+           id="tspan28">(S9) Functional annotation
+</tspan><tspan
+           x="97.647461"
+           y="160.09371"
+           id="tspan29">eggNOG-mapper
+</tspan><tspan
+           x="156.78418"
+           y="180.09371"
+           id="tspan30"> 
+</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-78"
+         width="54.236469"
+         height="12.625537"
+         x="41.170914"
+         y="159.78777" />
+    </g>
+    <g
+       id="g15"
+       transform="translate(3.1750001,5.8208336)">
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,107.48477,127.75934)"
+         id="text4-7-4-5-2-3-5-9-3"
+         style="font-size:16px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect4-5-1-7-8-2-1-0-9);display:inline"
+         x="18.121094"
+         y="0"><tspan
+           x="42.510742"
+           y="140.09371"
+           id="tspan31">(S10) Identify reciprocal best hits </tspan><tspan
+           x="62.049805"
+           y="160.09371"
+           id="tspan32">against reference database
+</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7-2-19"
+         width="64.372459"
+         height="12.625537"
+         x="117.49725"
+         y="159.78777" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-20)"
+       d="m 108.67854,104.77502 v 7.33655"
+       id="path5-7-4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle-2-20-4)"
+       d="m 108.67854,127.00004 v 7.33654"
+       id="path5-7-4-7" />
+  </g>
+</svg>
