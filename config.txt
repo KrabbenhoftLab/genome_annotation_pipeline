@@ -7,6 +7,8 @@
 # if you do not need to use a variable, you must still supply an empty string
 # e.g. RNA_DIR=""
 
+# variables are marked with [SX] to indicate which step(s) use them
+
 ############### Global options #############################
 # ANNOTATION_DIR (bottlerocket and cluster) should contain 
 # the following items when you first start the pipeline:
@@ -14,41 +16,41 @@
 # the scripts directory
 # this config.txt file
 # your GENOME_DIR
-ANNOTATION_DIR_BOTTLEROCKET="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation" # top level directory for annotation on Bottlerocket
-ANNOTATION_DIR_CLUSTER="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel" # top level directory for annotation on the cluster
-SPECIES="Lpel" # short name for your species
-GENOME_DIR="Lpel_assembly" # directory containing your genome assembly, needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
-GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # your genome FASTA assembly file, needs to be located inside of GENOME_DIR, must end in ".fasta"
+ANNOTATION_DIR_BOTTLEROCKET="/home/krablab/Documents/MacGuigan_data/Lpel_genome/Lpel_annotation" # [ALL] top level directory for annotation on Bottlerocket
+ANNOTATION_DIR_CLUSTER="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel" # [ALL] top level directory for annotation on the cluster
+SPECIES="Lpel" # [ALL] short name for your species
+GENOME_DIR="Lpel_assembly" # [ALL] directory containing your genome assembly, needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
+GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.fasta" # [ALL] your genome FASTA assembly file, needs to be located inside of GENOME_DIR, must end in ".fasta"
 
 ############### Repeat modeling/masking options ############
-USE_CLUSTER_RM="yes" # run repeat masking and modeling on the cluster (yes or no)?
-REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # name for your repeat library
-RMODEL_THREADS=20 # how many threads for repeat modeling 
-RMODEL_RAM="400G" # how much RAM for repeat modeling
-RUN_LTR="yes" # run LTR_Harvest and LTR_retreiver (yes or no); recommended, but may fail for some genomes
-CONTINUE_RMODEL="no" # continue RepeatModeler run that terminated early (yes or no)
+USE_CLUSTER_RM="yes" # [S1,2] run repeat masking and modeling on the cluster (yes or no)?
+REPEAT_LIBRARY_NAME="Lpel_REPEAT_LIBRARY" # [S1,2] name for your repeat library
+RMODEL_THREADS=20 # [S1] how many threads for repeat modeling 
+RMODEL_RAM="400G" # [S1] how much RAM for repeat modeling
+RUN_LTR="yes" # [S1] run LTR_Harvest and LTR_retreiver (yes or no); recommended, but may fail for some genomes
+CONTINUE_RMODEL="no" # [S1] continue RepeatModeler run that terminated early (yes or no)
 ## CONTINUE_RMODEL_DIR is the RepeatModeler directory containing a partially complete run to resume
 ## found within SPECIES_RepeatModeler
 ## will be named something like "RM_NUMBERS.DATE"
-CONTINUE_RMODEL_DIR="" 
-RMASK_THREADS=20 # how many threads for repeat masking
+CONTINUE_RMODEL_DIR="" # [S1]
+RMASK_THREADS=20 # [S2] how many threads for repeat masking
                  # use a multiple of 4 for maximum efficiency
                  # NOTE: minimum value for RMASK_THREADS is 4 
                  # see "RepeatMasker -h" for more details about paralleization
-RMASK_RAM="400G" # how much RAM for repeat masking
+RMASK_RAM="400G" # [S2] how much RAM for repeat masking
 ## RM_SPECIES is the species or clade to use for repeat masking
 ## to find a species or clade of interest, run the following three commands on Bottlerocket
 ## 'source activate maker-3.01.03'
 ## 'cd /home/krablab/Documents/apps/RepeatMasker/Libraries'
 ## 'famdb.py -i Dfam.h5 names YOUR_SPECIES_OR_CLADE'
 ## this should print a list of potential matches for you to choose from
-RM_SPECIES="vertebrata" 
-MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # name for soft masked genome assembly file, must end in ".fasta", will be produced during the RepeatMasker step
+RM_SPECIES="vertebrata" # [S2]
+MASKED_GENOME_FILE="Lpel_polished_assembly.kraken.purgeHaps.FINAL.masked.fasta" # [S3,4,6,7,8] name for soft masked genome assembly file, must end in ".fasta", will be produced during the RepeatMasker step
 
 ############### HISAT2 options ##############################
 ## NOTE: HISAT2 is optional but recommended, requires Illumina RNA-seq data, preferably from the species you are annotating
-USE_CLUSTER_HISAT="yes" # run HISAT2 on the cluster (yes or no)?
-RNA_DIR="RNA_reads" # path to directory containing Illumina RNA-seq reads (fastq files), needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
+USE_CLUSTER_HISAT="yes" # [S4] run HISAT2 on the cluster (yes or no)?
+RNA_DIR="RNA_reads" # [S4] path to directory containing Illumina RNA-seq reads (fastq files), needs to be located within the ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
 ## RNA_FILES is a tab separated file containing RNA-seq fastq files, one sample per line
 ## needs to be located in ANNOTATION_DIR_CLUSTER and ANNOTATION_DIR_BOTTLEROCKET
 ## each line can either contain 1 file (unpaired reads) or two files (paired reads)
@@ -57,9 +59,9 @@ RNA_DIR="RNA_reads" # path to directory containing Illumina RNA-seq reads (fastq
 ## sample2_R1.fq.gz sample2_R2.fq.gz
 ## sample3.fq.gz
 ## etc...
-RNA_FILES=rna_seqs.txt 
-HISAT_THREADS=10 # how many threads for HISAT2
-HISAT_RAM="400G" # how much RAM for HISAT2
+RNA_FILES=rna_seqs.txt # [S4]
+HISAT_THREADS=10 # [S4] how many threads for HISAT2
+HISAT_RAM="400G" # [S4] how much RAM for HISAT2
 ## IMPORTANT NOTE: RNA-seq files should not be more than a few Gb in size, otherwise HISAT2 will probably fail (likely error 137, insufficient RAM)
 
 ############### NCBI download options #######################
@@ -67,66 +69,69 @@ HISAT_RAM="400G" # how much RAM for HISAT2
 ## first colum is the GenBank or RefSeq ID
 ## you can find that information here: https://www.ncbi.nlm.nih.gov/datasets/genome/
 ## second column is a unique name for that species/genome, keep it short, only alphanumeric characters
-NCBI_TARGET_GENOMES="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/genomes_to_download.txt" 
-NCBI_DOWNLOAD_DIR="NCBI_genomes" # directory for your downloaded files, will be created within ANNOTATION_DIR_CLUSTER
+NCBI_TARGET_GENOMES="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/genomes_to_download.txt" # [S5]
+NCBI_DOWNLOAD_DIR="NCBI_genomes" # [S5] directory for your downloaded files, will be created within ANNOTATION_DIR_CLUSTER
 
 ############### BRAKER options ##############################
-AUGUSTUS_SPECIES_NAME="Lepomis_peltastes" # name for the Augustus model, BRAKER will throw error if this species already exists
-BRAKER_THREADS=20
-BRAKER_RAM="400G"
-## PROT_FASTA = path to a concatenated FASTA file containing all protein evidence
-## IMPORTANT: PROT_FASTA must located within ANNOTATION_DIR_CLUSTER
+AUGUSTUS_SPECIES_NAME="Lepomis_peltastes" # [S6] name for the Augustus model, BRAKER will throw error if this species already exists
+BRAKER_THREADS=20 # [S6]
+BRAKER_RAM="400G" # [S6]
+## PROT_FASTA is the path to a concatenated FASTA file containing all protein evidence
+## IMPORTANT: the PROT_FASTA path must nested within ANNOTATION_DIR_CLUSTER
+##### For example, if ANNOTATION_DIR_CLUSTER = "/path/to/my/annot/dir" 
+##### and the full path to your protein FASTA is "/path/to/my/annot/dir/proteins/myData.fasta"
+##### then PROT_FASTA = "proteins/myData.fasta"
 ## you will likely want to include protein data from NCBI for closely related species (see STEP 5 of this pipeline)
 ## you may also want to include the OrthoDB database
 ## clade-specific OrthoDB V11 databases available here: https://bioinf.uni-greifswald.de/bioinf/partitioned_odb11/
 ## to concatenate FASTA files, simply run "cat file1.fasta file2.fasta file3.fasta > concatenated.fasta"
 ## note: you can also concatenate gzipped fasta files using "cat" (but all fasta files must be gzipped)
-PROT_FASTA="protein_data/orthodb.metazoa.ncbiRefSeq.fasta" 
+PROT_FASTA="protein_data/orthodb.metazoa.ncbiRefSeq.fasta" # [S6]
 
 ############### GeMoMa options ##############################
-GEMOMA_THREADS=20
-GEMOMA_JOB_RAM="400G"
-GEMOMA_RAM="380G" # this must be smaller than the GEMOMA_JOB_RAM
+GEMOMA_THREADS=20 # [S7]
+GEMOMA_JOB_RAM="400G" # [S7]
+GEMOMA_RAM="380G" # [S7] this must be smaller than the GEMOMA_JOB_RAM
 ## GEMOMA_SCORE_AA_FILTER is the filter value for score/aa, default is 0.75, see https://www.jstacs.de/index.php/GeMoMa-Docs
 ## this variable will also be used by Evidence Modeler and EggNOG when selecting a GeMoMa annotation
-GEMOMA_SCORE_AA_FILTER="0.75" 
-GEMOMA_FILTER_ONLY="no" # filter previous GeMoMa run without redoing the full annotation (yes or no)?
+GEMOMA_SCORE_AA_FILTER="0.75" # [S7]
+GEMOMA_FILTER_ONLY="no" # [S7] filter previous GeMoMa run without redoing the full annotation (yes or no)?
 ## GEMOMA_REFS is the full path to a directory containing GFF and genome FASTA files for reference species
 ## files must end in .gff or .fasta
 ## file prefixes for GFF and FASTA must match, 
 ## file prefixes must be comprised only of letters and numbers, no special characters
 ## if you ran STEP 5 of this pipeline, GEMOMA_REFS can be the same directory as NCBI_DOWNLOAD_DIR
-GEMOMA_REFS="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/GeMoMa_refs" 
+GEMOMA_REFS="/projects/academic/tkrabben/MacGuigan/genome_annotations/Lpel/GeMoMa_refs" # [S7]
 ## following options are for using RNA-seq data with GeMoMa
-USE_HISAT2_RNA_SEQ=YES # do you want to use the RNA-seq mapping generated by HISAT2 in STEP 4, YES or NO?
+USE_HISAT2_RNA_SEQ=YES # [S7] do you want to use the RNA-seq mapping generated by HISAT2 in STEP 4, YES or NO?
 ## HISAT2_RNA_LIB_TYPE is the RNA-seq library type(FR_UNSTRANDED, FR_FIRST_STRAND, or FR_SECOND_STRAND)
 ## usually RNA-seq libraries are unstranded, but worth double checking for your datasets
 HISAT2_RNA_LIB_TYPE="FR_UNSTRANDED"
 ## following options allow GeMoMa to use mapped RNA-seq reads not produced by STEP 4
 ## these "custom" mapped reads can be used alone or in combination with the mapped RNA-seq data from STEP 4 
-USE_CUSTOM_RNA_SEQ=NO # do you want to use a custom RNA-seq BAM, YES or NO?
-CUSTOM_RNA_BAM="/path/to/RNA-seq/BAM/file" # full path to your "custom" RNA-seq BAM file
-CUSTOM_RNA_LIB_TYPE="FR_UNSTRANDED" # see note above for the HISAT2_RNA_LIB_TYPE option
+USE_CUSTOM_RNA_SEQ=NO # [S7] do you want to use a custom RNA-seq BAM, YES or NO?
+CUSTOM_RNA_BAM="/path/to/RNA-seq/BAM/file" # [S7] full path to your "custom" RNA-seq BAM file
+CUSTOM_RNA_LIB_TYPE="FR_UNSTRANDED" # [S7] see note above for the HISAT2_RNA_LIB_TYPE option
 
 ############### Evidence Modeler options #####################
-BRAKER_WEIGHT=1 # EVM weight for BRAKER predictions
-GEMOMA_WEIGHT=3 # EVM weight for GeMoMa predictions
-EVM_THREADS=20 # threads for EVM
-EVM_RAM="200G"
+BRAKER_WEIGHT=1 # [S8] EVM weight for BRAKER predictions
+GEMOMA_WEIGHT=3 # [S8] EVM weight for GeMoMa predictions
+EVM_THREADS=20 # [S8] threads for EVM
+EVM_RAM="200G" # [S8]
 
 ############### eggNOG mapper options ########################
-BRAKER_WEIGHT_EGG=1 # EVM weight for BRAKER predictions
-GEMOMA_WEIGHT_EGG=3 # EVM weight for GeMoMa predictions
-EGG_THREADS=20 # threads for eggNOG mapper
-EGG_RAM="200G"
-EGGNOG_OPTIONS="" # additional eggNOG options, see https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-Installation
+BRAKER_WEIGHT_EGG=1 # [S9] EVM weight for BRAKER predictions
+GEMOMA_WEIGHT_EGG=3 # [S9] EVM weight for GeMoMa predictions
+EGG_THREADS=20 # [S9] threads for eggNOG mapper
+EGG_RAM="200G" # [S9]
+EGGNOG_OPTIONS="" # [S9] additional eggNOG options, see https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#user-content-Installation
 
 ############### DIAMOND reciprocal best search options ########
-BRAKER_WEIGHT_DIAMOND=1 # EVM weight for BRAKER predictions
-GEMOMA_WEIGHT_DIAMOND=3 # EVM weight for GeMoMa predictions
-DATABASE="" # path to protein FASTA file to use a search database, must be located within ANNOTATION_DIR_CLUSTER
-DATABASE_NAME="Drer" # short name for the database you're seaching, will be used to name output files
-E_VAL="1e-3" # maximum expected value to report an alignment, see https://www.metagenomics.wiki/tools/blast/evalue
-DIAMOND_THREADS=20 
-DIAMOND_RAM="200G"
+BRAKER_WEIGHT_DIAMOND=1 # [S10] EVM weight for BRAKER predictions
+GEMOMA_WEIGHT_DIAMOND=3 # [S10] EVM weight for GeMoMa predictions
+DATABASE="" # [S10] path to protein FASTA file to use a search database, must be located within ANNOTATION_DIR_CLUSTER
+DATABASE_NAME="Drer" # [S10] short name for the database you're seaching, will be used to name output files
+E_VAL="1e-3" # [S10] maximum expected value to report an alignment, see https://www.metagenomics.wiki/tools/blast/evalue
+DIAMOND_THREADS=20 # [S10]
+DIAMOND_RAM="200G" # [S10]
 
