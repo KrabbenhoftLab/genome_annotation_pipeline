@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.2
+# v0.4.3
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute

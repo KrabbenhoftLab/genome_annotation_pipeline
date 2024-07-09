@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.2
+# v0.4.3
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -88,13 +88,15 @@ then
 	mv proteins.fasta proteins.longest_isoform.fasta
 
 else
+	cd ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}
+
 	# make .sh file to run combined GEMOMA
 	echo "GeMoMa -Xmx${GEMOMA_RAM} GeMoMaPipeline \\" > run_GeMoMa.combined.sh
 	echo "threads=${GEMOMA_THREADS} \\" >> run_GeMoMa.combined.sh
 	echo "AnnotationFinalizer.r=NO \\" >> run_GeMoMa.combined.sh
 	echo "p=false \\" >> run_GeMoMa.combined.sh
 	echo "o=true \\" >> run_GeMoMa.combined.sh
-	echo "outdir=${outDir_combined} \\" >> run_GeMoMa.combined.sh
+	echo "outdir=\".\" \\" >> run_GeMoMa.combined.sh
 	echo "GAF.f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\" \\" >> run_GeMoMa.combined.sh
 
 	# loop through each file in GEMOMA_REFS
@@ -109,7 +111,7 @@ else
 		gt gff3 -tidy -o ${sp}.clean.gff ${GFF} # clean up GFF file, make sure it's GFF3 format
 		echo "s=own \\" >> run_GeMoMa.combined.sh
 		echo "i=${sp} \\" >> run_GeMoMa.combined.sh
-		echo "a=${sp}.clean.gff \\" >> run_GeMoMa.combined.sh
+		echo "a=${ANNOTATION_DIR}/${SPECIES}_GeMoMa/${sp}.clean.gff \\" >> run_GeMoMa.combined.sh
 		echo "g=${GENOME} \\" >> run_GeMoMa.combined.sh
 	done
 
@@ -123,31 +125,25 @@ else
 	GeMoMa -Xmx${GEMOMA_RAM} Extractor \
 	 Ambiguity=AMBIGUOUS \
 	 p=true \
-	 outdir=${outDir_combined} \
+	 outdir="." \
 	 g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
-	 a=${outDir_combined}/final_annotation.gff;
+	 a=final_annotation.gff;
 
-	mv ${outDir_combined}/proteins.fasta ${outDir_combined}/proteins.all.fasta
+	mv proteins.fasta proteins.all.fasta
 
 	# get longest isoform of each gene
 	AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0.sif"
-	singularity run -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff ${outDir_combined}/final_annotation.gff -o ${outDir_combined}/final_annotation.longest_isoform.gff
+	singularity run -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff final_annotation.gff -o final_annotation.longest_isoform.gff
 
 	# generate protein predictions for longest isoform
 	GeMoMa -Xmx${GEMOMA_RAM} Extractor \
 	 Ambiguity=AMBIGUOUS \
 	 p=true \
-	 outdir=${outDir_combined} \
+	 outdir="." \
 	 g=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE} \
-	 a=${outDir_combined}/final_annotation.longest_isoform.gff;
+	 a=final_annotation.longest_isoform.gff;
 
-	mv ${outDir_combined}/proteins_1.fasta ${outDir_combined}/proteins.longest_isoform.fasta
-	
-	# move outputs to filter directory
-	mv ${outDir_combined}/proteins.longest_isoform.fasta ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/proteins.longest_isoform.fasta
-	mv ${outDir_combined}/final_annotation.gff ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.gff
-	mv ${outDir_combined}/final_annotation.longest_isoform.gff ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff
-	mv ${outDir_combined}/proteins.all.fasta  ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}/proteins.all.fasta
+	mv proteins_1.fasta proteins.longest_isoform.fasta
 fi
 
 
