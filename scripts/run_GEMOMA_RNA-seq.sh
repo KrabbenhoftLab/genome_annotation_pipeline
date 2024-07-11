@@ -99,6 +99,17 @@ then
 	mv proteins.fasta proteins.longest_isoform.fasta
 
 else
+	# loop through each file in GEMOMA_REFS
+	conda activate genometools-1.6.2
+	for GFF in ${GEMOMA_REFS}/*.gff
+	do 
+		# get gff file prefix
+		temp1=${GFF%.gff} # remove file suffix
+		sp=${temp1##*/} # remove path
+		echo ${sp}
+		gt gff3 -tidy -o ${sp}.clean.gff ${GFF} # clean up GFF file, make sure it's GFF3 format
+	done
+
 	cd ${outDir_combined}/filter_score_${GEMOMA_SCORE_AA_FILTER}
 	
 	# make .sh file to run combined GEMOMA
@@ -120,15 +131,12 @@ else
 	echo "GAF.f=\"start=='M' and stop=='*' and score/aa>=${GEMOMA_SCORE_AA_FILTER}\" \\" >> run_GeMoMa.combined.sh
 
 	# loop through each file in GEMOMA_REFS
-	conda activate genometools-1.6.2
 	for GFF in ${GEMOMA_REFS}/*.gff
 	do 
 		# get gff file prefix
 		temp1=${GFF%.gff} # remove file suffix
 		sp=${temp1##*/} # remove path
 		echo ${sp}
-		GENOME=${GEMOMA_REFS}/${sp}.fasta
-		gt gff3 -tidy -o ${sp}.clean.gff ${GFF} # clean up GFF file, make sure it's GFF3 format
 		echo "s=own \\" >> run_GeMoMa.combined.sh
 		echo "i=${sp} \\" >> run_GeMoMa.combined.sh
 		echo "a=${ANNOTATION_DIR}/${SPECIES}_GeMoMa/${sp}.clean.gff \\" >> run_GeMoMa.combined.sh
@@ -165,12 +173,13 @@ else
 
 	mv proteins_1.fasta proteins.longest_isoform.fasta
 	
+	cp unfiltered_predictions_from_species_*.gff ${ANNOTATION_DIR}/${SPECIES}_GeMoMa/GeMoMa_combined # copy unfiltered predictions in case user wants to filter post hoc later
 fi
 
 
 echo ""
 echo "Step 7 COMPLETE"
 echo "Please check to make sure that a combined GFF was produced by GeMoMa:"
-echo "${ANNOTATION_DIR_CLUSTER}/${SPECIES}_GeMoMa/GeMoMa_combined/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff"
+echo "${ANNOTATION_DIR}/${SPECIES}_GeMoMa/GeMoMa_combined/filter_score_${GEMOMA_SCORE_AA_FILTER}/final_annotation.longest_isoform.gff"
 echo ""
 echo "If Step 6 (BRAKER) has also finished, you may proceed to Step 8: combining gene predictions with EVM."
