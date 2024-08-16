@@ -1,11 +1,12 @@
 #!/bin/bash -l
 # v0.4.5
 
-#SBATCH --qos=scavenger
-#SBATCH --partition=scavenger
+#SBATCH --qos=general-compute
+#SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
-#SBATCH --time=2:00:00
+#SBATCH --time=72:00:00
 #SBATCH --nodes=1
+
 
 # Pipeline to perform gene prediction and annotation
 # author: Dan MacGuigan
