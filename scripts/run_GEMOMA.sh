@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.4
+# v0.4.5
 
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
@@ -76,7 +76,7 @@ then
 
 	# get longest isoform of each gene
 	AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0.sif"
-	singularity run -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff final_annotation.gff -o final_annotation.longest_isoform.gff
+	singularity exec -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff final_annotation.gff -o final_annotation.longest_isoform.gff
 
 	# generate protein predictions for longest isoform
 	GeMoMa -Xmx${GEMOMA_RAM} Extractor \
@@ -142,7 +142,7 @@ else
 
 	# get longest isoform of each gene
 	AGAT_SIF="/projects/academic/tkrabben/software/agat/agat_1.0.0--pl5321hdfd78af_0.sif"
-	singularity run -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff final_annotation.gff -o final_annotation.longest_isoform.gff
+	singularity exec -H ${PWD} ${AGAT_SIF} agat_sp_keep_longest_isoform.pl --gff final_annotation.gff -o final_annotation.longest_isoform.gff
 
 	# generate protein predictions for longest isoform
 	GeMoMa -Xmx${GEMOMA_RAM} Extractor \

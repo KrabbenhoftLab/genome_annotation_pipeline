@@ -1,5 +1,5 @@
 #!/bin/bash -l
-# v0.4.4
+# v0.4.5
 #SBATCH --qos=general-compute
 #SBATCH --partition=general-compute
 #SBATCH --account=tkrabben
