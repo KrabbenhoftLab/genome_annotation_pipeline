@@ -1,10 +1,10 @@
 #!/bin/bash -l
 # v0.4.5
 
-#SBATCH --qos=general-compute
-#SBATCH --partition=general-compute
+#SBATCH --qos=scavenger
+#SBATCH --partition=scavenger
 #SBATCH --account=tkrabben
-#SBATCH --time=72:00:00
+#SBATCH --time=2:00:00
 #SBATCH --nodes=1
 
 
@@ -30,8 +30,8 @@ BRAKER_SIF="/projects/academic/tkrabben/software/BRAKER3/braker3.0.6.sif" # loca
 mkdir ${SPECIES}_BRAKER
 
 # workaround to make Singularity function properly
-mkdir augustus_config
-echo "cp -r /usr/share/augustus/config/species /mnt/augustus_config/species" > temp.sh
+mkdir .augustus
+echo "cp -r /usr/share/augustus/config /mnt/.augustus" > temp.sh
 singularity exec -B $PWD:/mnt ${BRAKER_SIF} /bin/bash /mnt/temp.sh
 rm temp.sh
 
@@ -41,8 +41,8 @@ export TMPDIR=/tmp/
 if [ -f "${ANNOTATION_DIR}/${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam" ]; then  # if there is an RNA-seq BAM, supply RNA-seq evidence to BRAKER
 
     echo "starting BRAKER with RNA-seq evidence and protein evidence, sit tight"
-    singularity exec -H ${PWD} -B ${PWD}:/mnt ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${SPECIES}_BRAKER --threads ${BRAKER_THREADS} --gff3 --AUGUSTUS_CONFIG_PATH=/mnt/augustus_config
-    
+    singularity exec -H ${PWD} -B ${PWD}:/mnt ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --bam=${SPECIES}_HISAT2/${SPECIES}.sorted.rna.bam --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${SPECIES}_BRAKER --threads ${BRAKER_THREADS} --gff3 --AUGUSTUS_CONFIG_PATH=/mnt/.augustus/config
+
     # create annotation keeping all genes predicted by Augustus
 
     # need to make a TSEBRA config file, taken from their GitHub
@@ -69,7 +69,7 @@ e_4 0.18" > ${SPECIES}_BRAKER/default.cfg
 else # if there is no RNA-seq BAM, run BRAKER only with protein evidence
 
     echo "starting BRAKER with only protein evidence, sit tight"
-    singularity exec -H ${PWD} -B ${PWD}:/mnt ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${SPECIES}_BRAKER --threads ${BRAKER_THREADS} --gff3 --AUGUSTUS_CONFIG_PATH=/mnt/augustus_config
+    singularity exec -H ${PWD} -B ${PWD}:/mnt ${BRAKER_SIF} braker.pl --genome=${GENOME_DIR}/${MASKED_GENOME_FILE} --prot_seq=${PROT_FASTA} --species=${AUGUSTUS_SPECIES_NAME} --workingdir=${SPECIES}_BRAKER --threads ${BRAKER_THREADS} --gff3 --AUGUSTUS_CONFIG_PATH=/mnt/.augustus/config
     
 fi
 
