@@ -140,7 +140,7 @@ else
 		echo "s=own \\" >> run_GeMoMa.combined.sh
 		echo "i=${sp} \\" >> run_GeMoMa.combined.sh
 		echo "a=${ANNOTATION_DIR}/${SPECIES}_GeMoMa/${sp}.clean.gff \\" >> run_GeMoMa.combined.sh
-		echo "g=${GENOME} \\" >> run_GeMoMa.combined.sh
+		echo "g=${GEMOMA_REFS}/${sp}.fasta \\" >> run_GeMoMa.combined.sh
 	done
 
 	echo "t=${ANNOTATION_DIR}/${GENOME_DIR}/${MASKED_GENOME_FILE};" >> run_GeMoMa.combined.sh
