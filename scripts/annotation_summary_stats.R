@@ -44,7 +44,7 @@ mean_introns <- mean(gs_data$introns)
 median_introns <- median(gs_data$introns)
 stddev_introns <- sd(gs_data$introns)
 
-pep_data <- read.table(peps)
+pep_data <- read.table(peps, sep = "\t")
 mean_pep_len <- mean(pep_data[,ncol(pep_data)])
 median_pep_len <- median(pep_data[,ncol(pep_data)])
 stddev_pep_len <- sd(pep_data[,ncol(pep_data)])
