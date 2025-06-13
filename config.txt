@@ -59,7 +59,7 @@ RNA_DIR="RNA_reads" # [S4] path to directory containing Illumina RNA-seq reads (
 ## sample2_R1.fq.gz sample2_R2.fq.gz
 ## sample3.fq.gz
 ## etc...
-RNA_FILES=rna_seqs.txt # [S4]
+RNA_FILES=rna_seqs.txt # [S4] needs to be in the ANNOTATION_DIR top level directory
 HISAT_THREADS=10 # [S4] how many threads for HISAT2
 HISAT_RAM="400G" # [S4] how much RAM for HISAT2
 ## IMPORTANT NOTE: RNA-seq files should not be more than a few Gb in size, otherwise HISAT2 will probably fail (likely error 137, insufficient RAM)
